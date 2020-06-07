@@ -1,0 +1,80 @@
+<template>
+    <div class="container">
+        <div class="center">
+            <div id="login">
+                <div id="form">
+                    <input v-model="email" placeholder="enter your email"> <br>
+                    <input v-model="password" placeholder="enter your password"><br>
+                    <button @click="register">Register</button><button @click="login">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import authservice from '../services/AuthenticationService.js' 
+export default {
+    data: function(){
+        return {
+            email: '',
+            password: '',
+            error: null
+        }
+    },
+    methods: {
+        async login() {
+            const result = await authservice.login(this.email,this.password)
+            if(result == "error") {
+                console.log("ERROR")
+                window.alert("bad credentials")
+            }
+            localStorage.
+        }
+    }
+}
+</script>
+<style scoped>
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#login {
+    text-align:center;
+    margin-top: 60px;
+    background-color: #DDDDDD;
+    width: 500px;
+    height: 350px;
+    border-radius: 5vh;
+    filter: drop-shadow(2px 2px 5px #222222)
+}
+
+#form {
+    padding-top:30px;
+    margin:auto;
+    width:95%;
+    height:95%;
+}
+
+#form button{
+    height: 30px;
+    width: 70px;
+    margin:20px;
+}
+
+#login input{
+    text-align: center;
+    width: 70%;
+    height: 10%;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+</style>
