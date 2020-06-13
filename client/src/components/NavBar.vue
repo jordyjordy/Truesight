@@ -1,11 +1,23 @@
 <template>
     <div class="NavBar">
+        <a @click="logout">Logout</a>
           <a href="#home">Home</a>
         <a href="#news">News</a>
         <a href="#contact">Contact</a>
     </div>
 </template>
-
+<script>
+import authservice from '../services/AuthenticationService.js' 
+export default {
+    methods: {
+        async logout() {
+            await authservice.logout()
+            localStorage.removeItem('token')
+            this.$router.push('/')
+        }
+    }
+}
+</script>
 
 <style>
 .NavBar {
