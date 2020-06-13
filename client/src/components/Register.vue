@@ -3,9 +3,10 @@
         <div class="center">
             <div id="login">
                 <div id="form">
+                    <input v-model="name" placeholder="enter your username"> <br>
                     <input v-model="email" placeholder="enter your email"> <br>
                     <input v-model="password" placeholder="enter your password"><br>
-                    <button @click="register">Register</button><button @click="login">Login</button>
+                    <button @click="register">Register</button>
                 </div>
             </div>
         </div>
@@ -16,14 +17,15 @@ import authservice from '../services/AuthenticationService.js'
 export default {
     data: function(){
         return {
+            name: '',
             email: '',
             password: '',
             error: null
         }
     },
     methods: {
-        async login() {
-            const result = await authservice.login(this.email,this.password)
+        async register() {
+            const result = await authservice.register(this.name,this.email,this.password)
             if(result == "error") {
                 console.log("ERROR")
                 window.alert("bad credentials")
@@ -34,9 +36,6 @@ export default {
                 localStorage.setItem("token",result.data.token)
                 this.$router.push("/home")
             }
-        },
-        register() {
-            this.$router.push("/register")
         }
     }
 }

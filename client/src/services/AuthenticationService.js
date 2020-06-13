@@ -12,5 +12,26 @@ export default {
             return "error"
         }
         
+    },
+    register: async function (name,email,pass) {
+        const url = config.serverip + "/user/register";
+        try{
+            const result = await axios.post(url,{name:name,email:email,password:pass})
+            return result
+        } catch(err) {
+            return "error"
+        }
+    },
+    logout: async function() {
+        const url = config.serverip + "/user/logout";
+        try{
+            const token = localStorage.getItem("token")
+            
+            const result = await axios.delete(url, {headers: { "token": token } });
+            console.log(result)
+            return result
+        } catch (err) {
+            return "error"
+        }
     }
 }

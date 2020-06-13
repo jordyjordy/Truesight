@@ -45,6 +45,10 @@ userSchema.methods.generateAuthToken = async function() {
     return token
 }
 
+userSchema.methods.clearAuthToken = async function(token) {
+    const user = this
+}
+
 userSchema.statics.verify = async (token) => {
     const res = jwt.verify(token)
     return res
@@ -52,14 +56,32 @@ userSchema.statics.verify = async (token) => {
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email});
+    console.log(user.password)
+    console.log(password)
     if(!user) {
         throw new Error({ error: "Invalid login"})
     }
-    const isPasswordMatch = await bcrypt.compare(password,user.password)
-    if(!isPasswordMatch) {
-        throw new Error( {error: "Invalid login"})
+    try{
+        const isPasswordMatch = await bcrypt.compare(password,user.password)
+        if(!isPasswordMatch) {
+            throw new Error( {error: "Invalid login"})
+        }
+        return user
+    } catch(error) {
+        console.log(error)
+        return null
     }
-    return user
+}
+userSchema.statics.removeToken = async(email,token) => {
+    const user = await User.findOne({email})
+    if(!user) {
+        throw new Error({error: "cannot logout nonexisting user"})
+    }
+    const index = user.tokens.findIndex(x => x.token == token)
+    if (index > -1) {
+        user.tokens.splice(index,1)
+    }
+    return {result:"success"}
 }
 
 const User = mongoose.model("User", userSchema)

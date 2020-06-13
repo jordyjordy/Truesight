@@ -47,14 +47,19 @@ router.post('/login', async(req,res) => {
     }
 })
 
+router.delete('/logout',auth,async(req,res) => {
+    const user = await User.removeToken(req.userData.email, req.headers.token)
+    res.status(200).json({data: "deleted"})
+})
+
 router.post('/verify',auth, async(req,res) => {
-     res.status(200).json({data: await req.userData})
+     res.status(200).json({data: req.userData})
 
 })
 
 router.get('/me',auth, async(req, res) => {
     console.log(req.userData)
-     res.status(200).json({data : await req.userData})
+     res.status(200).json({data : req.userData})
 })
 
 module.exports = router
