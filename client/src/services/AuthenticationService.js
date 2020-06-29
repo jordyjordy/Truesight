@@ -1,8 +1,10 @@
 import axios from 'axios'
-const config = require('../config/server')
+import config from '../config/server'
+const ip = config.serverip
 export default {
     login: async function (user, pass) {
-        const url = config.serverip + "/user/login";
+        console.log(ip)
+        const url = ip + "/user/login";
         console.log(url)
         try{
         const result = await axios.post(url,{email:user, password:pass})
@@ -14,7 +16,7 @@ export default {
         
     },
     register: async function (name,email,pass) {
-        const url = config.serverip + "/user/register";
+        const url = ip + "/user/register";
         try{
             const result = await axios.post(url,{name:name,email:email,password:pass})
             return result
@@ -23,7 +25,7 @@ export default {
         }
     },
     logout: async function() {
-        const url = config.serverip + "/user/logout";
+        const url = ip + "/user/logout";
         try{
             const token = localStorage.getItem("token")
             

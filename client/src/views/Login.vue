@@ -1,10 +1,11 @@
 <template>
     <div class="container">
         <div class="center">
+            <img id='logo' src='../assets/logo2.png'/>
             <div id="login">
-                <div id="form">
+                <div id="form" @submit="login">
                     <input v-model="email" placeholder="enter your email"> <br>
-                    <input v-model="password" placeholder="enter your password"><br>
+                    <input v-model="password" type="password" placeholder="enter your password" v-on:keyup.enter="login"><br>
                     <button @click="register">Register</button><button @click="login">Login</button>
                 </div>
             </div>
@@ -38,6 +39,8 @@ export default {
         register() {
             this.$router.push("/register")
         }
+    },
+    components: {
     }
 }
 </script>
@@ -51,11 +54,14 @@ export default {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+#logo {
+    width:300px;
+}
 
 #login {
     text-align:center;
     margin-top: 60px;
-    background-color: #DDDDDD;
+    background-color: #214478;
     width: 500px;
     height: 350px;
     border-radius: 5vh;

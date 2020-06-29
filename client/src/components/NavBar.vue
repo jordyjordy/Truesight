@@ -1,9 +1,7 @@
 <template>
     <div class="NavBar">
+        <img id="navbarlogo" @click="home" src='../assets/logo2.png'/>
         <a @click="logout">Logout</a>
-          <a href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
     </div>
 </template>
 <script>
@@ -14,6 +12,9 @@ export default {
             await authservice.logout()
             localStorage.removeItem('token')
             this.$router.push('/')
+        },
+        async home() {
+            this.$router.push('/home')
         }
     }
 }
@@ -21,18 +22,28 @@ export default {
 
 <style>
 .NavBar {
-    overflow: hidden;
-    position: fixed;
+    top:0;
+    margin-top:0px;
+    padding-top:0px;
+    padding-bottom:0px;
     width:100%;
     height:50px;
-    margin-bottom:50px;
-    background-color:blue;
+    margin-bottom:0px;
+    background-color: #214478;
 }
+#navbarlogo {
+    margin-top:0.25%;
+    margin-left:1%;
+    float:left;
+    height:80%;
+}
+
 .NavBar a {
+    color: white;
     float: left;
     display: block;
-    background-color:blueviolet;
-    height: 50px;
+    background-color:#214478;
+    height: 50%;
     width: 100px;
     text-align: center;
     padding-top:12pt;

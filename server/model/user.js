@@ -56,8 +56,6 @@ userSchema.statics.verify = async (token) => {
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({email});
-    console.log(user.password)
-    console.log(password)
     if(!user) {
         throw new Error({ error: "Invalid login"})
     }
@@ -72,6 +70,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
         return null
     }
 }
+
 userSchema.statics.removeToken = async(email,token) => {
     const user = await User.findOne({email})
     if(!user) {
