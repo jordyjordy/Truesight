@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //import Login from './components/Login'
-import Home from './components/HelloWorld'
+import Home from './views/Home'
 Vue.use(Router)
 
 const routes = [
@@ -11,14 +11,38 @@ const routes = [
         component: Home,
         meta: { requiresAuth: true}
     } ,
+    {
+      path: '/characters',
+      name: 'characters',
+      component: () => import('./views/Characters.vue'),
+      meta: {requiresAuth: true}  
+    },
+    {
+        path: '/charactercreator',
+        name: ' charactercreator',
+        component: () => import('./views/CharacterCreator.vue'),
+        meta: {requiresAuth:true}
+    },
+    {
+      path:'/charsheet/:char',
+      name: 'charsheet',
+      component: () => import('./views/Charsheet.vue'),
+      props:true,
+      meta: {requiresAuth:true}
+    },
     { path: '/',
       name: 'login',
-      component: () => import('./components/Login.vue')
+      component: () => import('./views/Login.vue')
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('./components/Register.vue')
+        component: () => import('./views/Register.vue')
+    },
+    {
+        path: '/*',
+        name: 'default',
+        component: () => import('./views/NotFound.vue')
     }
 ]
 
@@ -40,7 +64,7 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if(localStorage.getItem("token") != null) {
-            if(to.path === '/') {
+            if(to.path === '/' || to.path === '/register') {
                 next({path:'/home'})
             }else{
                 next()

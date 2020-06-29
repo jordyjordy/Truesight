@@ -20,6 +20,7 @@ const skills = {
     STEALTH: 'stealth',
     SURVIVAL: 'survival'
 }
+
 const characterSchema = mongoose.Schema({
     name: {
         type: String,
@@ -70,9 +71,12 @@ const characterSchema = mongoose.Schema({
 })
 
 characterSchema.statics.findByUser = async (userid) => {
-    console.log(userid)
     const char = await Character.find({user:userid})
-    console.log(char)
+    return char
+}
+
+characterSchema.statics.findSingleById = async (id) => {
+    const char = await Character.findOne({_id:id})
     return char
 }
 

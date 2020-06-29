@@ -1,3 +1,3 @@
 module.exports = {
-    serverip: 'http://localhost:5000'
+    serverip: 'http://84.104.121.142:5000'
 }

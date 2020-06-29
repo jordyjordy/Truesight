@@ -2,20 +2,28 @@ express = require('express')
 router = express.Router();
 auth = require('../config/auth')
 const Character = require('../model/character')
+const User = require('../model/user');
 router.use(auth)
 
-router.get('/', async (req,res) => {
+router.get('/list',auth, async (req,res) => {
     const result = await Character.findByUser(req.userData._id)
-    res.status(200).json(req.userData)
+    console.log(result)
+    res.status(200).json(result)
 })
 
-router.post('/create', async (req, res) => {
+router.get('/single',auth,async (req,res) => {
+    console.log("HI")
+    console.log(req.query.id)
+    const result = await Character.findSingleById(req.query.id)
+    res.status(200).json(result)
+})
+
+router.post('/create',auth, async (req, res) => {
     const char = req.body.character
     try{
-        const character = new Character(char)
-        let result = await character.save()
-        console.log(result + "HI")
-        res.status(200).json({message:"success"})
+    const result = await Character.findByUser(req.userData._id)
+    console.log(result)
+    res.status(200).json(result)
     } catch (err) {
         res.status(400).json({error:err})
     }
