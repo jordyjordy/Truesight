@@ -1,6 +1,7 @@
 import axios from 'axios'
-import config from '../config/server'
-const ip = config.serverip
+import dotenv from 'dotenv'
+dotenv.config()
+const ip = process.env.SERVER_IP;
 
 export default {
     getCharacters: async function() {

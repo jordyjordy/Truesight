@@ -80,6 +80,7 @@ userSchema.statics.removeToken = async(email,token) => {
     if (index > -1) {
         user.tokens.splice(index,1)
     }
+    user.save();
     return {result:"success"}
 }
 
