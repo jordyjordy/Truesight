@@ -1,3 +1,4 @@
+#!/bin/bash
 CLIENTPORT=8080
 SERVERPORT=5000
 
@@ -20,7 +21,3 @@ done
 
 echo $CLIENTPORT
 echo $SERVERPORT
-export SERVERPORT=$SERVERPORT
-export CLIENTPORT=$CLIENTPORT
-docker-compose down
-docker-compose up -d
