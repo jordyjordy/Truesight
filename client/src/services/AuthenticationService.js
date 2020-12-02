@@ -5,16 +5,16 @@ axios.interceptors.response.use(
         return response
     },
     async error => {
-        if(error.response.status === 401) {
+        if (error.response.status === 401) {
             const longtoken = localStorage.getItem("longtoken")
-            if(longtoken) {
-                try{
-                    var res = await axios.get(ip + '/user/authenticate', {headers:{'longtoken':longtoken}})
-                    localStorage.setItem("token",res.data)
-                } catch(err) {
+            if (longtoken) {
+                try {
+                    var res = await axios.get(ip + '/user/authenticate', { headers: { 'longtoken': longtoken } })
+                    localStorage.setItem("token", res.data)
+                } catch (err) {
                     localStorage.removeItem('token')
                     localStorage.removeItem('longtoken')
-                } 
+                }
             } else {
                 localStorage.removeItem('token')
                 throw new Error('disconnected')
@@ -22,7 +22,7 @@ axios.interceptors.response.use(
             }
             throw new Error('reconnected')
 
-        } else if(error.response.status === 403) {
+        } else if (error.response.status === 403) {
             throw new Error('forbidden')
         }
         throw error
@@ -31,33 +31,34 @@ axios.interceptors.response.use(
 export default {
     login: async function (user, pass, long) {
         const url = ip + "/user/login";
-        try{
-            const result = await axios.post(url,{email:user, password:pass, long:long})
+        console.log(url)
+        try {
+            const result = await axios.post(url, { email: user, password: pass, long: long })
             return result
-        } catch(err) {
+        } catch (err) {
             return "error"
         }
-        
+
     },
-    register: async function (name,email,pass) {
+    register: async function (name, email, pass) {
         const url = ip + "/user/register";
-        try{
-            const result = await axios.post(url,{name:name,email:email,password:pass})
+        try {
+            const result = await axios.post(url, { name: name, email: email, password: pass })
             return result
-        } catch(err) {
+        } catch (err) {
             return "error"
         }
     },
-    logout: async function() {
+    logout: async function () {
         const url = ip + "/user/logout";
-        try{
+        try {
             const token = localStorage.getItem("token")
             const longtoken = localStorage.getItem("longtoken")
-            if(longtoken) {
-             await axios.delete(url, {headers: { "token": token, "longtoken":longtoken} });
+            if (longtoken) {
+                await axios.delete(url, { headers: { "token": token, "longtoken": longtoken } });
 
             } else {
-             await axios.delete(url, {headers: { "token": token } });
+                await axios.delete(url, { headers: { "token": token } });
             }
             localStorage.removeItem('token')
             localStorage.removeItem('longtoken')
@@ -68,43 +69,43 @@ export default {
             return "error"
         }
     },
-    authenticateRequest: async function(url,type,body) {
+    authenticateRequest: async function (url, type, body) {
         var newurl = ip + url
-        try{
+        try {
             const token = localStorage.getItem("token")
-            const headers = {headers:{'token':token}}
+            const headers = { headers: { 'token': token } }
             var val = {}
-            switch(type) {
+            switch (type) {
                 case "get":
                     val = await axios.get(newurl, headers)
                     break
                 case "post":
-                    val = await axios.post(newurl,body,headers)
+                    val = await axios.post(newurl, body, headers)
                     break
                 case "put":
-                    val = await axios.put(newurl,body,headers)
+                    val = await axios.put(newurl, body, headers)
                     break
                 case "delete":
-                    val = await axios.delete(newurl,headers)
+                    val = await axios.delete(newurl, headers)
                     break
                 default:
                     throw new Error("NOT IMPLEMENTED")
             }
             return val
-        } catch(err) {
-            if(typeof err === 'undefined') {
+        } catch (err) {
+            if (typeof err === 'undefined') {
                 console.log('undefined')
                 return ''
             }
-            if(err.message === 'reconnected') {
+            if (err.message === 'reconnected') {
                 console.log('attempting to re-authorize')
-                return await this.authenticateRequest(url,type,body)
-            } else if(err.message === 'disconnected') {
+                return await this.authenticateRequest(url, type, body)
+            } else if (err.message === 'disconnected') {
                 window.location.replace(window.location.origin)
             } else if (err.message === 'forbidden') {
                 return
             }
         }
-            
+
     },
 }
