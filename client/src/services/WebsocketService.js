@@ -2,9 +2,9 @@ const ip = process.env.VUE_APP_WSS_IP;
 var socket = {}
 var frontview = {}
 async function prepareSocket() {
-    socket.onmessage = function(message) {
+    socket.onmessage = function (message) {
         var data = JSON.parse(message.data)
-        switch(data.type) {
+        switch (data.type) {
             case "update":
                 update(data.data)
                 break
@@ -24,9 +24,9 @@ async function prepareSocket() {
     }
 }
 
-module.exports.send = async (type,data) => {
-    if(socket.readyState == WebSocket.OPEN) {
-        await socket.send(JSON.stringify({type:type,data:data}))
+module.exports.send = async (type, data) => {
+    if (socket.readyState == WebSocket.OPEN) {
+        await socket.send(JSON.stringify({ type: type, data: data }))
         return true
     } else {
         frontview.connected = false
@@ -35,10 +35,11 @@ module.exports.send = async (type,data) => {
 }
 module.exports.link = async (object) => {
     frontview = object
-    try{
-        socket =  new WebSocket(ip,['access_token', localStorage.getItem('token')])
+    try {
+        socket = new WebSocket(ip, ['access_token', localStorage.getItem('token')])
         await prepareSocket()
-    } catch(err) {
+    } catch (err) {
+        console.log(err)
         console.log('hm')
     }
 }
