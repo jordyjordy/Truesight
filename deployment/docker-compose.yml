@@ -4,13 +4,21 @@ services:
     container_name: "dndapp-client"
     image: dndapp-client:latest
     env_file: ".env"
-    restart: always
+    restart_policy:
+      condition: always
+      delay: 5s
+      max_attempts: 3
+      window: 120s
     ports:
       - "${CLIENTPORT}:80"
   server:
     container_name: "dndapp-server"
     image: dndapp-server:latest
     env_file: ".env"\
-    restart: always 
+    restart_policy:
+      condition: always 
+      delay: 5s
+      max_attempts: 3
+      window: 120s
     ports:
       - "${SERVERPORT}:5000"
