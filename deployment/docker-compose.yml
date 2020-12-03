@@ -14,7 +14,7 @@ services:
   server:
     container_name: "dndapp-server"
     image: dndapp-server:latest
-    env_file: ".env"\
+    env_file: ".env"
     restart_policy:
       condition: always 
       delay: 5s
