@@ -6,9 +6,8 @@ services:
     env_file: ".env"
     deploy:
       restart_policy:
-        condition: always
-        delay: 5s
-        max_attempts: 3
+        condition: any
+        delay: 10s
         window: 120s
     ports:
       - "${CLIENTPORT}:80"
@@ -18,9 +17,8 @@ services:
     env_file: ".env"
     deploy:
       restart_policy:
-        condition: always 
-        delay: 5s
-        max_attempts: 3
+        condition: any 
+        delay: 10s
         window: 120s
     ports:
       - "${SERVERPORT}:5000"
