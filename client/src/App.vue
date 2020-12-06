@@ -74,7 +74,7 @@ input[type="checkbox"] {
   .wide {
     width: 8em;
   }
-  input[type="textnpx"] {
+  input[type="textbox"] {
     width: 1.5em;
     height: 1.5em;
   }
@@ -92,7 +92,7 @@ input[type="checkbox"] {
   .wide {
     width: 8em;
   }
-  input[type="textnpx"] {
+  input[type="textbox"] {
     width: 1.5em;
     height: 1.5em;
   }
