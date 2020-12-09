@@ -22,4 +22,4 @@ echo $CLIENTPORT
 echo $SERVERPORT
 export SERVERPORT=$SERVERPORT
 export CLIENTPORT=$CLIENTPORT
-docker-compose down
+docker-compose --project-name dndapp down
