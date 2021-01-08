@@ -1,91 +1,117 @@
 <template>
-  <div class='battle'>
-      <div class='stat clickable' @click='show("ac","Armor Class")'><h5 >Armor Class</h5><h2 >{{character.ac}}</h2></div>
-      <div class='stat clickable' @click='show("initiative","Initiative")'><h5>Initiative</h5><h2 ><b v-if='character.initiative > 0'>+</b>{{character.initiative}}</h2></div>
-      <div class='stat clickable' @click='show("movement","Speed")'><h5>Speed</h5><h2 >{{character.movement}} ft</h2></div>
-      <div class='stat clickable' @click='show("proficiency","Proficiency Bonus")'><h5>Proficiency Bonus</h5><h2 >+{{character.proficiency}}</h2></div>
-      <div class='stat clickable'>
-          <h5>Health</h5>
-          <h3><b @click='show("maxhp","Maximum Health")'>{{character.maxhp}}</b>/<b @click='show("currenthp","Current Health")'>{{character.currenthp}}</b></h3>
-          <h5>Temporary</h5>
-          <h3 @click='show("temporaryhp","Temporary Health")'>{{character.temporaryhp}}</h3>
-          </div>
-      <div class='stat'><h5>Passive Perception</h5><h2>{{character.passivePerception}}</h2></div>
-      <popup v-show='pop' @close='close'>
-          <div class='popup short' >
-                <h2>{{poptitle}}</h2>
-              <input class='input' v-model='item'>
-              <button @click='close()'>Save</button>
-          </div>
-      </popup>
+  <div class="battle">
+    <div class="stat clickable" @click="show('ac', 'Armor Class')">
+      <h5>Armor Class</h5>
+      <h2>{{ character.ac }}</h2>
+    </div>
+    <div class="stat clickable" @click="show('initiative', 'Initiative')">
+      <h5>Initiative</h5>
+      <h2>
+        <b v-if="character.initiative > 0">+</b>{{ character.initiative }}
+      </h2>
+    </div>
+    <div class="stat clickable" @click="show('movement', 'Speed')">
+      <h5>Speed</h5>
+      <h2>{{ character.movement }} ft</h2>
+    </div>
+    <div
+      class="stat clickable"
+      @click="show('proficiency', 'Proficiency Bonus')"
+    >
+      <h5>Proficiency Bonus</h5>
+      <h2>+{{ character.proficiency }}</h2>
+    </div>
+    <div class="stat clickable">
+      <h5>Health</h5>
+      <h3>
+        <b @click="show('currenthp', 'Current Health')">{{
+          character.currenthp
+        }}</b
+        >/<b @click="show('maxhp', 'Maximum Health')">{{ character.maxhp }}</b>
+      </h3>
+      <h5>Temporary</h5>
+      <h3 @click="show('temporaryhp', 'Temporary Health')">
+        {{ character.temporaryhp }}
+      </h3>
+    </div>
+    <div class="stat">
+      <h5>Passive Perception</h5>
+      <h2>{{ character.passivePerception }}</h2>
+    </div>
+    <popup v-show="pop" @close="close">
+      <div class="popup short">
+        <h2>{{ poptitle }}</h2>
+        <input class="input" v-model="item" />
+        <button @click="close()">Save</button>
+      </div>
+    </popup>
   </div>
 </template>
 
 <script>
-import popup from '../../Popups/Popup'
+import popup from "../../Popups/Popup";
 export default {
-    props:['character'],
-    data: function() {
-        return {
-            pop:false,
-            poptitle:'',
-            item:'',
-            identifier:''
-        }
+  props: ["character"],
+  data: function () {
+    return {
+      pop: false,
+      poptitle: "",
+      item: "",
+      identifier: "",
+    };
+  },
+  components: {
+    popup,
+  },
+  methods: {
+    show(item, title) {
+      this.pop = true;
+      this.identifier = item;
+      console.log(this.character[item]);
+      this.item = this.character[item];
+      console.log(this.item);
+      this.poptitle = title;
     },
-    components: {
-        popup
+    close() {
+      this.update();
+      this.pop = false;
     },
-    methods: {
-        show(item,title) {
-            this.pop = true
-            this.identifier = item
-            console.log(this.character[item])
-            this.item = this.character[item]
-            console.log(this.item)
-            this.poptitle = title
-        },
-        close() {
-            this.update()
-            this.pop = false
-        },
-        update() {
-            var temp = {}
-            temp[this.identifier] = this.item
-            this.$emit('update',[{task:'update',data:temp}])
-        }
-    }
-}
+    update() {
+      var temp = {};
+      temp[this.identifier] = this.item;
+      this.$emit("update", [{ task: "update", data: temp }]);
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>
-@import '../../../scss/variables';
-.battle{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: 1fr 1fr;
-    row-gap:10px;
-    column-gap:10px;
-    grid-column-start:1;
-    grid-column-end:3;
-    grid-row-start:2;
-    grid-row-end:4;
-
+@import "../../../scss/variables";
+.battle {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 10px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 4;
 }
-.stat{
-    padding-top:0.2em;
-    position:relative;
-    background-color:white;
-    border:1px solid $border-color;
-    border-radius:$border-radius;
+.stat {
+  padding-top: 0.2em;
+  position: relative;
+  background-color: white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
 }
-h5{
-    font-size:0.8vw;
-    margin-top:0.2em;
+h5 {
+  font-size: 0.8vw;
+  margin-top: 0.2em;
 }
-h2{
-    font-size:1.2vw;
-    margin:0.2em;
+h2 {
+  font-size: 1.2vw;
+  margin: 0.2em;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -94,25 +120,25 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-.hpinput{
-    color: rgb(44,62,80);
-    text-align: center;
-    margin:0.2em;
-    border:none;
-    width:2em;
-    font-size:1.5em;
-    font-weight:bolder;
+.hpinput {
+  color: rgb(44, 62, 80);
+  text-align: center;
+  margin: 0.2em;
+  border: none;
+  width: 2em;
+  font-size: 1.5em;
+  font-weight: bolder;
 }
 
-@media only screen and (max-width:$small-screen) {
-    .battle{
-        grid-column-start:1;
-        grid-column-end:3;
-        grid-row-start:4;
-        grid-row-end:6;        
-    }
+@media only screen and (max-width: $small-screen) {
+  .battle {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 6;
+  }
 }
 </style>
