@@ -40,7 +40,7 @@ jobs:
 #           username: ${{ github.repository_owner }}
 #           password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Build and push bot
+        name: Build and push shared
         uses: docker/build-push-action@v2
         with:
           context: ./shared
