@@ -34,7 +34,7 @@ jobs:
         name: Login to Registry
         uses: docker/login-action@v1
         with:
-          registry: registry.jvdt.dev:5p001
+          registry: registry.jvdt.dev:5001
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PASS }}  
 #           username: ${{ github.repository_owner }}
