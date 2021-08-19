@@ -2,13 +2,13 @@ const Item = require('./item')
 class MagicItem extends Item {
     constructor(item) {
         super(item)
-        this.class='magicitem'
-        this.rarity =item.rarity
+        this.class = 'magicitem'
+        this.rarity = item.rarity
         this.attunement = item.attunement
-        this.attuned = item.attuned?item.attuned:false
+        this.attuned = item.attuned && (this.attunement !== "" || this.attunement === "no") ? item.attuned : false
     }
 
-    display(){
+    display() {
         var x = super.display()
         x.rarity = this.rarity
         x.attunement = this.attunement
@@ -17,7 +17,7 @@ class MagicItem extends Item {
 
     equals(item) {
         return super.equals(item) && item.rarity == this.rarity &&
-        item.attunement == this.attunement
+            item.attunement == this.attunement
     }
 
     static from(json) {

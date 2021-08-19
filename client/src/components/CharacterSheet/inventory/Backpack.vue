@@ -60,13 +60,13 @@
             <div>
               <button @click.stop="equipItem(id)">Equip</button>
               <button
-                v-if="typeof item.attunement !== 'undefined' && !item.attuned"
+                v-if="canAttune(item) && !item.attuned"
                 @click.stop="attuneItem(id)"
               >
                 Attune
               </button>
               <button
-                v-if="typeof item.attunement !== 'undefined' && item.attuned"
+                v-if="canAttune(item) && item.attuned"
                 @click.stop="unattuneItem(id)"
               >
                 Un-Attune
@@ -84,15 +84,15 @@
             class="input"
             name="items"
             @change="updateType()"
-            v-model="typestring"
+            v-model="item.class"
             id="items"
           >
             <option value="item">Normal Item</option>
             <option value="armor">Armor</option>
             <option value="weapon">Weapon</option>
-            <option value="magic item">Magic Item</option>
-            <option value="magic weapon">Magic Weapon</option>
-            <option value="magic armor">Magic Armor</option></select
+            <option value="magicitem">Magic Item</option>
+            <option value="magicweapon">Magic Weapon</option>
+            <option value="magicarmor">Magic Armor</option></select
           ><br />
           <h5>Name:</h5>
           <input class="input wide" v-model="item.name" type="text" />
@@ -150,12 +150,17 @@ export default {
       pop: false,
       showid: -1,
       countid: -1,
-      item: new Item("name", "type", "cost", 0, "description", "icon", "color"),
+      item: new Item(
+        "name",
+        "type",
+        "cost",
+        0,
+        "description",
+        "icon",
+        "color",
+        "class"
+      ),
       editid: -1,
-      magic: false,
-      weapon: false,
-      armor: false,
-      typestring: String,
       editing: false,
     };
   },
@@ -165,6 +170,16 @@ export default {
         return Array.from(this.inventory.backpack);
       }
       return new Array();
+    },
+
+    weapon: function () {
+      return this.item.class.includes("weapon");
+    },
+    magic: function () {
+      return this.item.class.includes("magic");
+    },
+    armor: function () {
+      return this.item.class.includes("armor");
     },
   },
   methods: {
@@ -188,6 +203,7 @@ export default {
     editItem(id) {
       this.editid = id;
       this.item = this.backpack[id];
+      this.updateType();
       this.editing = true;
       this.pop = true;
     },
@@ -208,11 +224,19 @@ export default {
         "color"
       );
     },
+    canAttune(item) {
+      return (
+        typeof item.attunement !== "undefined" &&
+        item.attunement !== "" &&
+        item.attunement !== "no"
+      );
+    },
     saveItem() {
       if (!this.editing) {
         this.item.count = 1;
         this.update(this.backpack.length, this.item);
       } else {
+        console.log(this.editid);
         this.update(this.editid, this.item);
         this.editid = -1;
         this.editing = false;
@@ -234,6 +258,7 @@ export default {
       this.update(id, this.backpack[id]);
     },
     update(id, item) {
+      console.log(id + "," + item.class);
       var temp = { inventory: { backpack: {} } };
       temp.inventory.backpack[id] = item;
       this.$emit("update", [{ task: "update", data: temp }]);
@@ -257,35 +282,23 @@ export default {
       this.pop = false;
     },
     updateType() {
-      if (this.typestring.includes("magic")) {
-        this.magic = true;
-        if (this.typestring.includes("weapon")) {
-          this.weapon = true;
-          this.armor = false;
+      if (this.item.class.includes("magic")) {
+        if (this.item.class.includes("weapon")) {
           this.item = new MagicWeapon(this.item);
         } else {
-          this.weapon = false;
-          if (this.typestring.includes("armor")) {
+          if (this.item.class.includes("armor")) {
             this.item = new MagicArmor(this.item);
-            this.armor = true;
           } else {
-            this.armor = false;
             this.item = new MagicItem(this.item);
           }
         }
       } else {
-        this.magic = false;
-        if (this.typestring.includes("weapon")) {
-          this.weapon = true;
-          this.armor = false;
+        if (this.item.class.includes("weapon")) {
           this.item = new Weapon(this.item);
         } else {
-          this.weapon = false;
-          if (this.typestring.includes("armor")) {
+          if (this.item.class.includes("armor")) {
             this.item = new Armor(this.item);
-            this.armor = true;
           } else {
-            this.armor = false;
             this.item = new Item(this.item);
           }
         }

@@ -3,12 +3,12 @@ class MagicWeapon extends MagicItem {
 
     constructor(item) {
         super(item)
-        this.class='magicweapon'
+        this.class = 'magicweapon'
         this.damage = item.damage
         this.properties = item.properties
     }
 
-    display(){
+    display() {
         var x = super.display()
         x.damage = this.damage
         x.properties = this.properties
@@ -16,9 +16,9 @@ class MagicWeapon extends MagicItem {
     }
 
     equals(item) {
-        return item.class == "magicweapon" &&
-        super.equals(item) && this.damage == item.damage &&
-        this.properties == item.properties
+        return item.class == this.class &&
+            super.equals(item) && this.damage == item.damage &&
+            this.properties == item.properties
     }
     static from(json) {
         return Object.assign(new MagicWeapon(), json)
