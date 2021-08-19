@@ -67,9 +67,7 @@ export default {
     show(item, title) {
       this.pop = true;
       this.identifier = item;
-      console.log(this.character[item]);
       this.item = this.character[item];
-      console.log(this.item);
       this.poptitle = title;
     },
     close() {

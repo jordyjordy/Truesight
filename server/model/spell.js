@@ -26,7 +26,7 @@ const spellSchema = mongoose.Schema({
         type: String
     },
     components: {
-        type:String
+        type: String
     },
     description: {
         type: String
@@ -34,26 +34,23 @@ const spellSchema = mongoose.Schema({
     concentration: {
         type: Boolean
     },
-    user : {
+    user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
     }
 })
 
-spellSchema.statics.findByName = async (name,page,editable,user) => {
+spellSchema.statics.findByName = async (name, page, editable, user) => {
     var options = {}
-    console.log(editable)
-    if(name != undefined) {
-        options.name = {$regex:name.toLowerCase(), $options: 'i'}
+    if (name != undefined) {
+        options.name = { $regex: name.toLowerCase(), $options: 'i' }
     }
-    if(editable == 'true'){
+    if (editable == 'true') {
         options.user = user
     }
-    console.log(options)
-    const items = await Spell.find(options).skip((page-1)*20).limit(20)
+    const items = await Spell.find(options).skip((page - 1) * 20).limit(20)
     return items
 }
-spellSchema.statics.spellCount = async() => {
-    console.log('length')
+spellSchema.statics.spellCount = async () => {
     return (await Spell.find()).length
 }
 

@@ -31,7 +31,6 @@ axios.interceptors.response.use(
 export default {
     login: async function (user, pass, long) {
         const url = ip + "/user/login";
-        console.log(url)
         try {
             const result = await axios.post(url, { email: user, password: pass, long: long })
             return result
@@ -94,11 +93,9 @@ export default {
             return val
         } catch (err) {
             if (typeof err === 'undefined') {
-                console.log('undefined')
                 return ''
             }
             if (err.message === 'reconnected') {
-                console.log('attempting to re-authorize')
                 return await this.authenticateRequest(url, type, body)
             } else if (err.message === 'disconnected') {
                 window.location.replace(window.location.origin)

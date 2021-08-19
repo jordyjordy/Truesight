@@ -35,13 +35,8 @@ module.exports.send = async (type, data) => {
 }
 module.exports.link = async (object) => {
     frontview = object
-    try {
-        socket = new WebSocket(ip, ['access_token', localStorage.getItem('token')])
-        await prepareSocket()
-    } catch (err) {
-        console.log(err)
-        console.log('hm')
-    }
+    socket = new WebSocket(ip, ['access_token', localStorage.getItem('token')])
+    await prepareSocket()
 }
 module.exports.disconnect = () => {
     socket.close()

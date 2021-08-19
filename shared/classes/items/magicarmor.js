@@ -7,7 +7,7 @@ class MagicArmor extends MagicItem {
         this.strength = item.strength
         this.stealth = item.stealth
     }
-    display(){
+    display() {
         var x = super.display()
         x.ac = this.ac
         x.strength = this.strength
@@ -16,13 +16,13 @@ class MagicArmor extends MagicItem {
     }
 
     equals(item) {
-        return item.class == "magicarmor" &&
-        super.equals(item) && item.ac == this.ac &&
-        item.strength == this.strength && item.stealth == this.stealth
+        return item.class == this.class &&
+            super.equals(item) && item.ac == this.ac &&
+            item.strength == this.strength && item.stealth == this.stealth
     }
 
     static from(json) {
         return Object.assign(new MagicArmor(), json)
     }
 }
-module.exports=MagicArmor
+module.exports = MagicArmor
