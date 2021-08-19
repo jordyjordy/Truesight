@@ -37,11 +37,9 @@ module.exports.createSocket = () => {
                         updateConnections('' + con.character, message, con)
                         break;
                     default:
-                        console.log("message type not recognized")
                         break;
                 }
             } catch (err) {
-                console.log(err)
             }
         })
 
@@ -55,8 +53,6 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         throw new Error('create a Websocket Server first!')
     }
     if (request.headers.origin != process.env.CLIENT_IP) {
-        console.log("ERROR UPGRADING ORIGIN")
-        console.log(request.headers.origin + ',' + process.env.CLIENT_IP)
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
         return
@@ -67,7 +63,6 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         })
 
     } else {
-        console.log("ERROR UPGRADING")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
     }
@@ -96,7 +91,6 @@ function deepRemove(object, attributes) {
             if (Array.isArray(object)) {
                 object.splice(attributes[keys[i]], 1)
             } else {
-                console.log('cannot remove from non-array currently')
                 throw new Error("cannot remove attribute")
             }
         } else {

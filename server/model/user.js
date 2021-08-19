@@ -24,28 +24,28 @@ const userSchema = mongoose.Schema({
     ]
 })
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
     const user = this;
-    if(user.isModified("password")) {
+    if (user.isModified("password")) {
         user.password = await bcrypt.hash(user.password, 8)
     }
     next()
 })
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign(
         {
             _id: user._id, name: user.name, email: user.email
-            
+
         }, process.env.SECRET
     )
-    user.tokens = user.tokens.concat({token})
+    user.tokens = user.tokens.concat({ token })
     await user.save();
     return token
 }
 
-userSchema.methods.clearAuthToken = async function(token) {
+userSchema.methods.clearAuthToken = async function (token) {
     const user = this
 }
 
@@ -55,38 +55,37 @@ userSchema.statics.verify = async (token) => {
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({email});
-    if(!user) {
-        throw new Error({ error: "Invalid login"})
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new Error({ error: "Invalid login" })
     }
-    try{
-        const isPasswordMatch = await bcrypt.compare(password,user.password)
-        if(!isPasswordMatch) {
-            throw new Error( {error: "Invalid login"})
+    try {
+        const isPasswordMatch = await bcrypt.compare(password, user.password)
+        if (!isPasswordMatch) {
+            throw new Error({ error: "Invalid login" })
         }
         return user
-    } catch(error) {
-        console.log(error)
+    } catch (error) {
         return null
     }
 }
 
-userSchema.statics.removeToken = async(email,token) => {
-    const user = await User.findOne({email})
-    if(!user) {
-        throw new Error({error: "cannot logout nonexisting user"})
+userSchema.statics.removeToken = async (email, token) => {
+    const user = await User.findOne({ email })
+    if (!user) {
+        throw new Error({ error: "cannot logout nonexisting user" })
     }
-    try{
+    try {
         const index = user.tokens.findIndex(x => x.token == token)
         if (index > -1) {
-            user.tokens.splice(index,1)
+            user.tokens.splice(index, 1)
         }
-    } catch(err) {
+    } catch (err) {
         //the token was probably already cleared so its fine
         //lol
     }
     await user.save();
-    return {result:"success"}
+    return { result: "success" }
 }
 
 const User = mongoose.model("User", userSchema)

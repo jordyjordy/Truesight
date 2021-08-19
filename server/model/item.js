@@ -41,20 +41,18 @@ const itemSchema = mongoose.Schema({
 
 })
 
-itemSchema.statics.findByName = async (name,page,editable,user) => {
+itemSchema.statics.findByName = async (name, page, editable, user) => {
     var options = {}
-    console.log(editable)
-    if(name != undefined) {
-        options.name = {$regex:name.toLowerCase(), $options: 'i'}
+    if (name != undefined) {
+        options.name = { $regex: name.toLowerCase(), $options: 'i' }
     }
-    if(editable == 'true'){
+    if (editable == 'true') {
         options.user = user
     }
-    console.log(options)
-    const items = await Item.find(options).skip((page-1)*20).limit(20)
+    const items = await Item.find(options).skip((page - 1) * 20).limit(20)
     return items
 }
-itemSchema.statics.itemCount = async() => {
+itemSchema.statics.itemCount = async () => {
     return (await Item.find()).length
 }
 

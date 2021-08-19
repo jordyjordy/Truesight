@@ -10,120 +10,120 @@ const characterSchema = mongoose.Schema({
     },
     cclass: [
         {
-            name:{
+            name: {
                 type: String
             },
-            subclass:{
+            subclass: {
                 type: String
             },
             level: {
                 type: Number
             },
             hitdice: {
-                current:{type:Number},
-                dice:{type:Number}
+                current: { type: Number },
+                dice: { type: Number }
             }
         }
-        
+
     ],
     looks: {
-        age:Number,
-        weight:Number,
-        height:String,
-        eyes:String,
-        skin:String,
-        hair:String,
-        description:String
+        age: Number,
+        weight: Number,
+        height: String,
+        eyes: String,
+        skin: String,
+        hair: String,
+        description: String
     },
-    traits:[
+    traits: [
         {
-            name:{type:String},
-            description:{type:String},
-            source:{type:String}
+            name: { type: String },
+            description: { type: String },
+            source: { type: String }
         }
     ],
-    counters:[
+    counters: [
         {
-            name:String,
-            max:Number,
-            current:Number
+            name: String,
+            max: Number,
+            current: Number
         }
     ],
-    race:{type:String},
-    background:{type:String},
-    alignment:{type:String},
-    experience:{type:Number},
-    money:{
-        pp:{type:Number},
-        gp:{type:Number},
-        sp:{type:Number},
-        cp:{type:Number}
+    race: { type: String },
+    background: { type: String },
+    alignment: { type: String },
+    experience: { type: Number },
+    money: {
+        pp: { type: Number },
+        gp: { type: Number },
+        sp: { type: Number },
+        cp: { type: Number }
     },
     proficiency: { type: Number },
     attributes: {
         strength: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
-        dexterity: {            
+        dexterity: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         constitution: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         intelligence: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         wisdom: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         charisma: {
             name: String,
-            base:Number,
-            modifiers:[
+            base: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         }
@@ -131,194 +131,193 @@ const characterSchema = mongoose.Schema({
     },
     savingthrows: {
         strength: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         dexterity: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         constitution: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         intelligence: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         wisdom: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         },
         charisma: {
-            proficiency:Number,
-            modifiers:[
+            proficiency: Number,
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         }
-    },skills: [
-        {      
+    }, skills: [
+        {
             name: String,
             ability: String,
             proficiency: Number,
-            modifiers:[
+            modifiers: [
                 {
-                    name:String,
-                    value:Number,
-                    source:String,
+                    name: String,
+                    value: Number,
+                    source: String,
                 }
             ]
         }
     ],
     ac: Number,
-    initiative:Number,
-    movement:Number,
-    maxhp:Number,
-    currenthp:Number,
-    temporaryhp:Number,
+    initiative: Number,
+    movement: Number,
+    maxhp: Number,
+    currenthp: Number,
+    temporaryhp: Number,
     spells: [
         {
-            name:String,
-            level:Number,
-            castingtime:String,
-            duration:String,
-            distance:String,
-            attack:String,
-            school:String,
-            effect:String,
-            components:String,
-            description:String,
-            concentration:Boolean,
-            prepared:Boolean
+            name: String,
+            level: Number,
+            castingtime: String,
+            duration: String,
+            distance: String,
+            attack: String,
+            school: String,
+            effect: String,
+            components: String,
+            description: String,
+            concentration: Boolean,
+            prepared: Boolean
         }
     ],
-    spellsave:Number,
-    spellattack:Number,
-    effects:[
+    spellsave: Number,
+    spellattack: Number,
+    effects: [
         {
-            icon:String,
-            name:String,
-            description:String
+            icon: String,
+            name: String,
+            description: String
         }
     ],
-    proficiencies:[
+    proficiencies: [
         {
             name: String,
             description: String
         }
     ],
     backgroundinfo: {
-        ideals:String,
-        bonds:String,
-        flaws:String,
-        story:String,
-        features:String,
-        trinket:String,
-        allies:String,
-        backstory:String,
-        traits:String
+        ideals: String,
+        bonds: String,
+        flaws: String,
+        story: String,
+        features: String,
+        trinket: String,
+        allies: String,
+        backstory: String,
+        traits: String
     },
-    inventory:{
-        backpack : [
+    inventory: {
+        backpack: [
             {
-                class:String,
-                name:String,
-                description:String,
-                weight:Number,
-                cost:String,
-                type:{type:String},
-                icon:String,
-                color:String,
-                rarity:String,
-                attunement:String,
-                ac:String,
-                strength:Number,
-                damage:String,
-                properties:String,
-                stealth:String,
-                count:Number,
-                attuned:Boolean
+                class: String,
+                name: String,
+                description: String,
+                weight: Number,
+                cost: String,
+                type: { type: String },
+                icon: String,
+                color: String,
+                rarity: String,
+                attunement: String,
+                ac: String,
+                strength: Number,
+                damage: String,
+                properties: String,
+                stealth: String,
+                count: Number,
+                attuned: Boolean
             }
         ],
-        equipped : [
+        equipped: [
             {
-                class:String,
-                name:String,
-                description:String,
-                weight:Number,
-                cost:String,
-                type:{type:String},
-                icon:String,
-                color:String,
-                rarity:String,
-                attunement:String,
-                ac:String,
-                strength:Number,
-                damage:String,
-                properties:String,
-                stealth:String,
-                count:Number,
-                attuned:Boolean
+                class: String,
+                name: String,
+                description: String,
+                weight: Number,
+                cost: String,
+                type: { type: String },
+                icon: String,
+                color: String,
+                rarity: String,
+                attunement: String,
+                ac: String,
+                strength: Number,
+                damage: String,
+                properties: String,
+                stealth: String,
+                count: Number,
+                attuned: Boolean
             }
         ]
     },
-    attacks:[
+    attacks: [
         {
-            name:String,
-            attack:String,
-            damage:String,
-            extra:String
+            name: String,
+            attack: String,
+            damage: String,
+            extra: String
         }
     ],
-    saves:{
-        succes:Number,
-        failure:Number
+    saves: {
+        succes: Number,
+        failure: Number
     }
 
 })
 
 characterSchema.statics.findByUser = async (userid) => {
-    const char = await Character.find({user:userid})
+    const char = await Character.find({ user: userid })
     return char
 }
 
 characterSchema.statics.findSingleById = async (id) => {
-    const char = await Character.findOne({_id:id})
-    console.log('found char')
+    const char = await Character.findOne({ _id: id })
     return char
 }
 
