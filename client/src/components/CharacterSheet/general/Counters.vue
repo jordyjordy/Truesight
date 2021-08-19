@@ -78,7 +78,6 @@ export default {
     removeCounter(id) {
       var temp = { counters: [] };
       temp.counters.push(id);
-      console.log(temp);
       this.$emit("update", [{ task: "remove", data: temp }]);
       this.pop = false;
       this.popid = 0;
@@ -109,7 +108,6 @@ export default {
         var temp = { counters: {} };
         temp.counters[oldid] = this.editcounters[id];
         temp.counters[id] = this.editcounters[oldid];
-        console.log(temp);
         this.$emit("update", [{ task: "update", data: temp }]);
       }
     },

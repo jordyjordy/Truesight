@@ -236,7 +236,6 @@ export default {
         this.item.count = 1;
         this.update(this.backpack.length, this.item);
       } else {
-        console.log(this.editid);
         this.update(this.editid, this.item);
         this.editid = -1;
         this.editing = false;
@@ -258,7 +257,6 @@ export default {
       this.update(id, this.backpack[id]);
     },
     update(id, item) {
-      console.log(id + "," + item.class);
       var temp = { inventory: { backpack: {} } };
       temp.inventory.backpack[id] = item;
       this.$emit("update", [{ task: "update", data: temp }]);

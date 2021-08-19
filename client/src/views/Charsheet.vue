@@ -139,9 +139,6 @@ export default {
       if (!wsservice.send("update", data)) {
         await wsservice.link(this);
         await this.start();
-        if (!wsservice.send("update", data)) {
-          console.log("COULD NO LONGER TRANSMIT DATA");
-        }
       }
     },
     async remove(data) {
@@ -190,7 +187,6 @@ export default {
           if (Array.isArray(object)) {
             object.splice(attributes[keys[i]], 1);
           } else {
-            console.log("cannot remove from non-array currently");
             throw Error("cannot remove attribute");
           }
         } else {
