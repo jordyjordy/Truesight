@@ -1,38 +1,38 @@
 <template>
-    <div class='weight'>
-        <h2>Encumberance</h2>
-        <h1>{{inventory.weight}} lbs</h1>
-    </div>
+  <div class="weight">
+    <h2>Encumberance</h2>
+    <h1>{{ Math.round(inventory.weight * 10) / 10 }} lbs</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    props:{
-        inventory:Object
-    }
-}
+  props: {
+    inventory: Object,
+  },
+};
 </script>
 
 <style lang='scss' scoped>
-@import '../../../scss/variables';
-.weight{
-    grid-column-start: 3;
-    grid-column-end:5;
-    grid-row-start:5;
-    grid-row-end:6;
-    border:1px solid $border-color;
-    border-radius:$border-radius;
-    background-color:white;
+@import "../../../scss/variables";
+.weight {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: white;
 }
-h1{
-    margin:0;
+h1 {
+  margin: 0;
 }
-@media only screen and (max-width:$small-screen) {
-    .weight{
+@media only screen and (max-width: $small-screen) {
+  .weight {
     grid-column-start: 1;
-    grid-column-end:3;
-    grid-row-start:13;
-    grid-row-end:14;        
-    }
+    grid-column-end: 3;
+    grid-row-start: 13;
+    grid-row-end: 14;
+  }
 }
 </style>
