@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
             //determine if the token has timed out
             if (secondsSinceEpoch - decoded.iat >= process.env.TOKEN_TIMEOUT) {
                 //remove the token from the database anyway
-                await User.removeToken(decoded.email, req.headers.token)
+                // await User.removeToken(decoded.email, req.headers.token)
                 //inform the client the connection has timed out and it should send a longtoken or reconnect
                 res.status(401).json("Connection timed out")
                 res.send()
