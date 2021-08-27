@@ -53,9 +53,9 @@ router.post('/login', async (req, res) => {
 router.delete('/logout', async (req, res) => {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET)
     // await User.removeToken(decoded.email, req.headers.token)
-    if (req.headers.longtoken) {
-        await User.removeToken(decoded.email, req.headers.longtoken)
-    }
+    // if (req.headers.longtoken) {
+    //     await User.removeToken(decoded.email, req.headers.longtoken)
+    // }
     res.status(200).json({ data: "deleted" })
 })
 router.get('/authenticate', async (req, res) => {
