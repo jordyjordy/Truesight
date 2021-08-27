@@ -4,7 +4,7 @@
             <img id='logo' src='../assets/logo.svg'/>
             <div id="login">
                 <div id="form" @submit="register">
-                    <input v-model="email" placeholder="enter your username"> <br>
+                    <input v-model="email" placeholder="enter your email"> <br>
                     <input v-model="password" type="password" placeholder="enter your password" v-on:keyup.enter="register"><br>
                     <button @click="register">Register</button>
                 </div>
@@ -17,7 +17,6 @@ import authservice from '../services/AuthenticationService.js'
 export default {
     data: function(){
         return {
-            name: '',
             email: '',
             password: '',
             error: null
