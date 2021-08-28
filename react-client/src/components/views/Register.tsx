@@ -43,7 +43,7 @@ export function Register () {
         return re.test(String(email).toLowerCase());
       }
     return (
-        <div className="center-container">
+        <div className="register center-container">
             <img src={logo} className="main-logo"  alt="logo"/>
             <div className="register-container">
                 <form className="register-form" onSubmit={register}>
