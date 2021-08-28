@@ -28,7 +28,7 @@ export function Login() {
     }
 
     return (
-        <div className="center-container">
+        <div className="login center-container">
             <img src={logo} className="main-logo"  alt="logo"/>
             <div className="login-container">
                 <form className="login-form" onSubmit={login}>

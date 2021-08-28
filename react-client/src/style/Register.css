@@ -1,7 +1,7 @@
-:root {
+.register {
     --big-text: 20px;
     --medium-text:15px;
-    --container-height:250;
+    --container-height:250px;
 }
 
 .center-container{

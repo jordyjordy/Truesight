@@ -1,4 +1,4 @@
-:root {
+.login {
     --big-text: 20px;
     --medium-text:15px;
     --container-height:200px;
@@ -86,15 +86,15 @@ input[type="text"],input[type="password"] {
         opacity:0;
     }
     55%{
-        height:var(--container-height);
+        height:200px;
         opacity:0;
     }
     60%{
-        height:var(--container-height);
+        height:200px;
         opacity:0;
     }
     100% {
-        height:var(--container-height);
+        height:200px;
         opacity:100%;
     }
   }
