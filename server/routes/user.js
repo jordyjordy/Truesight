@@ -32,19 +32,14 @@ router.post('/login', async (req, res) => {
     try {
         const email = req.body.email
         const pass = req.body.password
-        const long = req.body.long
         const user = await User.findByCredentials(email, pass)
 
         if (!user) {
             return res.status(401).json({ error: "Wrong credentials" })
         }
         const token = await user.generateAuthToken()
-        if (long) {
-            const longtoken = await user.generateAuthToken()
-            res.status(201).json({ user, token, longtoken })
-        } else {
-            res.status(201).json({ user, token })
-        }
+        const longtoken = await user.generateAuthToken()
+        res.status(201).json({ user, token, longtoken })
     } catch (err) {
         res.status(400).json({ err: err })
     }
