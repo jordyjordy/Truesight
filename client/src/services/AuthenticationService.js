@@ -68,6 +68,24 @@ export default {
             return "error"
         }
     },
+    requestpasswordreset: async function(email) {
+        const url = ip + "/user/requestpasswordreset"
+        try{
+            const result = await axios.post(url,{email:email})
+            return result
+        } catch(err) {
+            return false
+        }
+    },
+    resetpassword: async function(token,password) {
+        const url = ip + '/user/passwordreset'
+        try {
+            const result = await axios.post(url,{token:token,password:password})
+            return result
+        } catch(err) {
+            console.log(err)
+        }
+    },
     authenticateRequest: async function (url, type, body) {
         var newurl = ip + url
         try {

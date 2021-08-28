@@ -3,23 +3,18 @@
     <div class="center">
       <img class="logo" src="../assets/logo.svg" />
       <div id="login">
-        <div id="form" @submit="login">
-          <input v-model="email" placeholder="enter your username" />
+        <div id="form" @submit="change">
           <input
             v-model="password"
             type="password"
-            placeholder="enter your password"
-            v-on:keyup.enter="login"
-          /><br />
-          Stay signed in:<br /><input
-            v-model="long"
-            type="checkbox"
-            id="long"
-          /><br />
-          <button class='forgot' @click='forgot'>Forgot Password</button>
-          <button @click="register">Register</button>
-          <button @click="login">Login</button>
-
+            placeholder="enter your new password"
+          />
+        <input
+            v-model="passwordcheck"
+            type="password"
+            placeholder="re-enter your new password"
+          /> <br>
+          <button @click="change">Update Password</button>
         </div>
       </div>
     </div>
@@ -30,40 +25,22 @@ import authservice from "../services/AuthenticationService.js";
 export default {
   data: function () {
     return {
-      email: "",
       password: "",
-      long: false,
-      error: null,
+      passwordcheck: ""
     };
   },
   methods: {
-    async login() {
-      const result = await authservice.login(
-        this.email,
-        this.password,
-        this.long
-      );
-      if (result == "error") {
-        window.alert("bad credentials");
-      }
-      const token = result.data.token;
-      const longtoken = result.data.longtoken;
-      if (longtoken) {
-        localStorage.setItem("longtoken", longtoken);
-      } else {
-        localStorage.removeItem("longtoken");
-      }
-      if (token) {
-        localStorage.setItem("token", token);
-        this.$router.push("/characters");
-      }
-    },
-    register() {
-      this.$router.push("/register");
-    },
-    forgot(){
-      this.$router.push("/resetpassword")
+    async change() {
+        if(this.password === this.passwordcheck ) {
+            await authservice.resetpassword(this.$route.query.token,this.password)
+            this.$router.push('/')
+        } else {
+            alert("Passwords dont match")
+        }
     }
+  },
+  beforeMount() {
+      console.log(this.$route.query.token)
   },
   components: {},
 };

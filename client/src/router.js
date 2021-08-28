@@ -33,6 +33,16 @@ const routes = [
         component: () => import('./views/Register.vue')
     },
     {
+        path: '/resetpassword',
+        name: 'resetpassword',
+        component: () => import('./views/RequestPasswordReset.vue')
+    },
+    {
+        path: '/passwordRecovery',
+        name: 'passwordRecovery',
+        component: () => import('./views/ResetPassword.vue')
+    },
+    {
         path: '/403',
         name: 'notAuthorized',
         component: () => import('./views/Forbidden.vue')

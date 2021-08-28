@@ -2,7 +2,9 @@ express = require('express')
 router = express.Router()
 mongoose = require("mongoose")
 jwt = require("jsonwebtoken")
+nodemailer = require('nodemailer')
 const User = require("../model/user")
+const {sendRecoveryEmail} = require("../config/sendEmail")
 
 router.post('/register', async (req, res) => {
     try {
@@ -50,10 +52,10 @@ router.post('/login', async (req, res) => {
 
 router.delete('/logout', async (req, res) => {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET)
-    await User.removeToken(decoded.email, req.headers.token)
-    if (req.headers.longtoken) {
-        await User.removeToken(decoded.email, req.headers.longtoken)
-    }
+    // await User.removeToken(decoded.email, req.headers.token)
+    // if (req.headers.longtoken) {
+    //     await User.removeToken(decoded.email, req.headers.longtoken)
+    // }
     res.status(200).json({ data: "deleted" })
 })
 router.get('/authenticate', async (req, res) => {
@@ -75,6 +77,41 @@ router.get('/authenticate', async (req, res) => {
         res.status(400).send()
     }
 
+})
+
+router.post('/requestpasswordreset', async(req,res) => {
+    console.log('reset requested')
+    try{
+        const user = await User.findOne({email:req.body.email})
+        if(!user) {
+            res.status(400).send()
+        }
+        const email = req.body.email
+        token = jwt.sign({email:email},process.env.RECOVERY_SECRET)
+        sendRecoveryEmail(email,token)
+        res.status(201).send()
+    } catch(err) {
+
+        res.status(400).send()
+    }
+})
+
+router.post('/passwordreset', async(req, res) => {
+    try {
+        const decoded = await jwt.verify(req.body.token, process.env.RECOVERY_SECRET)
+        const secondsSinceEpoch = Math.round(Date.now() / 1000)
+        //the user only has an hour to reset their password
+        if (secondsSinceEpoch - decoded.iat >= 3600) {
+            throw new Error("Token timed out")
+        }
+        if(User.updatePassword(decoded.email,req.body.password)) {
+            res.status(204).send()
+        } else {
+            res.status(400).send()
+        }
+    } catch(err) {
+        res.status(400).send()
+    }
 })
 
 module.exports = router
