@@ -75,11 +75,12 @@ router.get('/authenticate', async (req, res) => {
 router.post('/requestpasswordreset', async(req,res) => {
     console.log('reset requested')
     try{
-        const user = await User.findOne({email:req.body.email})
+        const email = req.body.email
+        const user = await User.findOne({email:email})
         if(!user) {
             res.status(400).send()
         }
-        const email = req.body.email
+
         token = jwt.sign({email:email},process.env.RECOVERY_SECRET)
         sendRecoveryEmail(email,token)
         res.status(201).send()

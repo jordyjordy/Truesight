@@ -51,7 +51,7 @@ export function Login() {
                             pathname: "/register"
                         }}>Create an Account</Link><br/>
                         <Link to={{
-                            pathname: "/requestpassword"
+                            pathname: "/passwordrequest"
                         }}>Forgot Password</Link>
                         </div>
                         <input type='submit' className="login-button" value="Login"/>

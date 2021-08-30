@@ -13,7 +13,7 @@ const sendRecoveryEmail = async(email, token) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Truesight Password Recovery",
-        text: 'Go to ' + process.env.CLIENT_IP + '/passwordRecovery?token=' + token + " to recover your password. \n"
+        text: 'Go to ' + process.env.CLIENT_IP + '/resetpassword?token=' + token + " to recover your password. \n"
         + "This link is valid for one hour. \n\n"
         + "If you did not request this, feel free to ignore this email."
     }
