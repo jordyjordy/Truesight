@@ -1,8 +1,7 @@
 import mong  from 'mongoose'
 const {  Schema, model } = mong
 import bcrypt from "bcrypt"
-import jw from "jsonwebtoken"
-const {Jwt} = jw
+import jwt from "jsonwebtoken"
 const userSchema = Schema({
     email: {
         type: String,

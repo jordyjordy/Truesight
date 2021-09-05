@@ -1,6 +1,5 @@
 import WebSocket from "ws"
-import pkg from "jsonwebtoken"
-const { Jwt } = pkg
+import jwt from "jsonwebtoken"
 import {Character} from "./model/character.js"
 import {User} from "./model/user.js" 
 import dotenv from "dotenv"
@@ -157,7 +156,7 @@ async function authenticate(request) {
         return false
     }
     try {
-        const decoded = await Jwt.verify(token, process.env.SECRET)
+        const decoded = await jwt.verify(token, process.env.SECRET)
         const secondsSinceEpoch = Math.round(Date.now() / 1000)
         if (secondsSinceEpoch - decoded.iat >= process.env.TOKEN_TIMEOUT) {
             await User.removeToken(decoded.email, req.headers.token)

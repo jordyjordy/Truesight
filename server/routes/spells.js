@@ -1,6 +1,4 @@
 import {Router} from "express"
-import jw from "jsonwebtoken"
-const {Jwt} = jw
 var router = Router();
 import auth from "../config/auth.js"
 router.use(auth)
