@@ -1,5 +1,6 @@
 import mong from "mongoose"
 const { Schema, model } = mong
+import {composeWithMongoose} from 'graphql-compose-mongoose'
 const spellSchema = Schema({
     name: {
         type: String
@@ -58,3 +59,4 @@ spellSchema.statics.spellCount = async () => {
 }
 
 export const Spell = model("Spell", spellSchema)
+export const SpellTC = composeWithMongoose(Spell)

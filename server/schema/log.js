@@ -1,0 +1,25 @@
+import { LogTC } from "../model/log.js"
+
+const logQuery = {
+    logById: LogTC.getResolver('findById'),
+    logByIds: LogTC.getResolver('findByIds'),
+    logOne: LogTC.getResolver('findOne'),
+    logMany: LogTC.getResolver('findMany'),
+    logCount: LogTC.getResolver('count'),
+    logConnection: LogTC.getResolver('connection'),
+    logPagination: LogTC.getResolver('pagination'),
+
+}
+
+const logMutation = {
+    logCreateOne: LogTC.getResolver('createOne'),
+    logCreateMany: LogTC.getResolver('createMany'),
+    logUpdateById: LogTC.getResolver('updateById'),
+    logUpdateOne: LogTC.getResolver('updateOne'),
+    logUpdateMany: LogTC.getResolver('updateMany'),
+    logRemoveById: LogTC.getResolver('removeById'),
+    logRemoveOne: LogTC.getResolver('removeOne'),
+    logRemoveMany: LogTC.getResolver('removeMany'),
+}
+
+export {logQuery, logMutation}

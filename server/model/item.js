@@ -1,6 +1,6 @@
 import mong from "mongoose"
 const {Schema, model} = mong
-
+import {composeWithMongoose} from 'graphql-compose-mongoose'
 const itemSchema = Schema({
     name: {
         type: String,
@@ -62,3 +62,4 @@ itemSchema.statics.itemCount = async () => {
 
 
 export const Item = model("Item", itemSchema)
+export const ItemTC = composeWithMongoose(Item)

@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-
-const handoutSchema = mongoose.Schema({
+import mong from "mongoose"
+const {Schema, model} = mong
+import {composeWithMongoose} from 'graphql-compose-mongoose'
+const handoutSchema = Schema({
     name:{
         type:String,
         required:[true,"Handout needs a name."]
@@ -11,6 +12,7 @@ const handoutSchema = mongoose.Schema({
     }
 })
 
-const Handout = mongoose.model("Handout",handoutSchema)
+export const Handout = model("Handout",handoutSchema)
+export const HandoutTC = composeWithMongoose(Handout)
 
-module.exports = Handout
+

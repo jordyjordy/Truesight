@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-
-const noteSchema = mongoose.Schema({
+import mong from "mongoose"
+const {Schema, model} = mong
+import {composeWithMongoose} from 'graphql-compose-mongoose'
+const noteSchema = Schema({
     name:{
         type:String,
         required:[true,"your note needs a name"]
@@ -16,6 +17,6 @@ const noteSchema = mongoose.Schema({
         required:[true,"your note needs text!"]
     }
 })
-const Note = mongoose.model("Note",noteSchema)
+export const Note = model("Note",noteSchema)
+export const NoteTC = composeWithMongoose(Note)
 
-module.exports = Note

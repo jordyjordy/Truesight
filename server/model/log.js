@@ -1,6 +1,6 @@
 import mong from "mongoose"
 const {Schema, model} = mong
-
+import {composeWithMongoose} from 'graphql-compose-mongoose'
 const logSchema = Schema({
     name: {
         type:String,
@@ -19,3 +19,4 @@ const logSchema = Schema({
 })
 
 export const Log = model("Log",logSchema)
+export const LogTC = composeWithMongoose(Log)

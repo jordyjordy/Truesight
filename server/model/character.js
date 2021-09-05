@@ -1,5 +1,6 @@
 import mong from "mongoose"
 const  {Mongoose, Schema, model} = mong
+import {composeWithMongoose} from 'graphql-compose-mongoose'
 const characterSchema = Schema({
     name: {
         type: String,
@@ -322,3 +323,4 @@ characterSchema.statics.findSingleById = async (id) => {
 }
 
 export const Character = model("Character", characterSchema)
+export const CharacterTC = composeWithMongoose(Character)

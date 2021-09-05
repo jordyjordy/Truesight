@@ -2,6 +2,7 @@ import mong  from 'mongoose'
 const {  Schema, model } = mong
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import {composeWithMongoose} from 'graphql-compose-mongoose'
 const userSchema = Schema({
     email: {
         type: String,
@@ -96,3 +97,4 @@ userSchema.statics.updatePassword = async(email, password) => {
 // }
 
 export const User = model("User", userSchema)
+export const UserTC = composeWithMongoose(User)
