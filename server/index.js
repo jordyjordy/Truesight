@@ -14,6 +14,9 @@ var spells = require('./routes/spells')
 var characters = require('./routes/characters')
 var user = require('./routes/user')
 var items = require('./routes/items')
+var campaigns = require("./routes/campaigns")
+var logs = require("./routes/logs")
+
 mongoose.set("useCreateIndex", true)
 mongoose.set("useUnifiedTopology", true)
 mongoose.set("useNewUrlParser", true)
@@ -29,8 +32,8 @@ app.use('/spells', spells)
 app.use('/characters', characters)
 app.use('/user', user)
 app.use('/items', items)
-
-
+app.use('/campaigns',campaigns)
+app.use('/logs', logs)
 var server = http.createServer(app)
 websocket.createSocket()
 server.on('upgrade', (request, socket, head) => {

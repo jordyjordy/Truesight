@@ -1,7 +1,7 @@
-import logo from "../../Logo-big.png"
-import "../../style/PasswordRequest.css";
+import logo from "../../../Logo-big.png"
+import "../../../style/Account/PasswordRequest.css";
 import React, { useState } from "react";
-import {requestReset as requestPasswordReset} from "../../utils/account"
+import {requestReset as requestPasswordReset} from "../../../utils/account"
 import { useHistory } from "react-router";
 export function PasswordRequest() {
 
@@ -11,7 +11,7 @@ export function PasswordRequest() {
         event.preventDefault()
         if(await requestPasswordReset(email)) {
             alert("If a user exists, you will receive an email shortly")
-            history.push('/')
+            history.push('/login')
         }
     }
 

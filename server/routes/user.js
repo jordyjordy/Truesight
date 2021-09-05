@@ -73,7 +73,6 @@ router.get('/authenticate', async (req, res) => {
 })
 
 router.post('/requestpasswordreset', async(req,res) => {
-    console.log('reset requested')
     try{
         const email = req.body.email
         const user = await User.findOne({email:email})

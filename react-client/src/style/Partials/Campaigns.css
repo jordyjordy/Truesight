@@ -1,0 +1,30 @@
+
+.blue {
+    background-color: #1B348B;
+}
+
+.campaigns-container {
+    flex-grow: 1;
+    margin:10px;
+    height:100%;
+}
+
+.campaigns-grid{
+    display:flex;
+    flex-flow: row;
+
+    justify-content:center;
+    flex-wrap: wrap;
+    height:100%;
+
+    overflow-y:overlay;
+}
+
+.campaign-maker {
+    display: flex;
+    font-family: "Yaldevi Colombo ExtraLight";
+    font-size: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+}

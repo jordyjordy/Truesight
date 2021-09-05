@@ -1,0 +1,44 @@
+.campaign-container {
+    padding:10px;
+    max-width:1600px;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin:auto;
+    height:100%;
+}
+.x-1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.x-2 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.x-3 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+.x-4 {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+.y-1 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+.y-2 {
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.long {
+    grid-row-end: 3;
+}
+.grid-item {
+    overflow: hidden;
+}

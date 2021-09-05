@@ -1,0 +1,56 @@
+.campaign-card {
+    flex: 1 0 calc(50% - 20px);
+    /* background-color: white; */
+    background: linear-gradient(50deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%);
+    border-radius: 10px;
+    margin:10px 10px;
+    /* max-width: calc(50% - 10px); */
+    min-height:180px;
+    min-width:550px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 2s ease;
+}
+
+.campaign-card:hover {
+    /* background: rgb(217,217,217); */
+    background: linear-gradient(50deg, rgba(217,217,217,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+.campaign-card:hover .campaign-card-header {
+    background: linear-gradient(50deg, #770808 0%, #980F0F 100%);
+}
+
+/* .campaign-card:nth-child(odd) {
+    margin-right:10px;
+}
+.campaign-card:nth-child(even) {
+    margin-left:10px;
+} */
+
+.campaign-card-header {
+    border-radius: 10px 10px 0px 0px;
+    background-color: #980F0F;
+    padding:10px;
+    height:60px;
+    color:white;
+    font-size: 25px;
+    font-family: "Yaldevi Colombo ExtraLight";
+    text-transform: capitalize;
+    display:flex;
+    justify-content: space-between;
+}
+.campaign-card-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-end;
+}
+
+.edit-image {
+
+    height: 20px;
+    margin-bottom:10px;
+}
+.edit-image:hover {
+    box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,10 @@
+.overview-container {
+    padding:10px;
+    display:grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 400px auto;
+    justify-content: stretch;
+    height:100%;
+    max-width:1600px;
+    margin:auto;
+}

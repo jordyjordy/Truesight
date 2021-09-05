@@ -1,7 +1,7 @@
-import logo from "../../Logo-big.png"
-import "../../style/PasswordReset.css"
+import logo from "../../../Logo-big.png"
+import "../../../style/Account/PasswordReset.css"
 import React, { useState } from "react";
-import {resetPassword} from "../../utils/account"
+import {resetPassword} from "../../../utils/account"
 import { useHistory } from "react-router";
 import { useLocation, Redirect} from "react-router-dom";
 
@@ -13,7 +13,7 @@ export function PasswordReset() {
     const [confirmPass,setConfirmPass] = useState("")
     const query = new URLSearchParams(useLocation().search)
     if(!query.get('token')) {
-        return <Redirect to='/'/>
+        return <Redirect to='/login'/>
     }
     const resetPass = async function(event:React.FormEvent){
         event.preventDefault()
@@ -23,7 +23,7 @@ export function PasswordReset() {
         }
         const res = await resetPassword(query.get('token')!,password)
         if(res) {
-            history.push('/')
+            history.push('/login')
         } else {
             alert("Something went wrong, please try again later")
         }

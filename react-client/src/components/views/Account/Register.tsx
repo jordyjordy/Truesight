@@ -1,7 +1,7 @@
-import logo from "../../Logo-big.png"
-import "../../style/Register.css"
+import logo from "../../../Logo-big.png"
+import "../../../style/Account/Register.css"
 import React, { useState } from "react";
-import {register as requestRegister} from "../../utils/account"
+import {register as requestRegister} from "../../../utils/account"
 import { useHistory } from "react-router";
 export function Register () {
 
@@ -17,8 +17,8 @@ export function Register () {
         }
         if(validateEmail(email)) {
             const res = await requestRegister(email, password)
-            if(res === "success") {
-                history.push('/')
+            if(res) {
+                history.push('/login')
             } else {
                 alert("Something went wrong, please try again later")
             }

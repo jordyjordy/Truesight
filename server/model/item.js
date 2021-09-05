@@ -37,6 +37,9 @@ const itemSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
     },
+    private: {
+        type: Boolean
+    }
 
 
 })

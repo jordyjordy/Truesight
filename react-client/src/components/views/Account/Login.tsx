@@ -1,8 +1,8 @@
-import logo from "../../Logo-big.png"
-import "../../style/Login.css"
+import logo from "../../../Logo-big.png"
+import "../../../style/Account/Login.css"
 import { Link } from "react-router-dom"
 import React, { useState } from "react";
-import {login as requestLogin} from "../../utils/account"
+import {login as requestLogin} from "../../../utils/account"
 import { useHistory } from "react-router";
 export function Login() {
 
@@ -12,18 +12,17 @@ export function Login() {
     const login = async function(event:React.FormEvent){
         event.preventDefault()
         if(await requestLogin(email,password)) {
-            console.log(' succes?!')
-            history.push('/main')
+            history.push('/')
+        } else {
+            alert("Could not log in, are you sure your email and password are correct?")
         }
     }
 
     const changeEmail = function(event:React.FormEvent<HTMLInputElement>) {
-        console.log('changing email')
         setEmail(event.currentTarget.value)
     }
 
     const changePassword = function(event:React.FormEvent<HTMLInputElement>) {
-        console.log('changing password')
         setPassword(event.currentTarget.value)
     }
 
