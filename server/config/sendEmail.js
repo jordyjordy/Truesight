@@ -1,4 +1,4 @@
-const nodemailer= require('nodemailer')
+import nodemailer from 'nodemailer'
 const transporter = nodemailer.createTransport({
     service:'gmail',
     host:'smtp.gmail.com',
@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 })
-const sendRecoveryEmail = async(email, token) => {
+export const sendRecoveryEmail = async(email, token) => {
 
     var mailOptions = {
         from: process.env.EMAIL_USER,
@@ -25,5 +25,3 @@ const sendRecoveryEmail = async(email, token) => {
         }
     })
 }
-
-module.exports = {sendRecoveryEmail}

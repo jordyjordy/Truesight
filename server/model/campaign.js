@@ -1,46 +1,47 @@
-const mongoose = require('mongoose')
-
-const campaignSchema = mongoose.Schema({
+import mong from "mongoose"
+const {Schema,model} = mong
+import {composeWithMongoose} from 'graphql-compose-mongoose'
+const campaignSchema = Schema({
     name:{
         type:String,
         require: [true,"every group needs a name!"]
     },
     DM: {
-        type: mongoose.Schema.Types.ObjectId, ref: "User"
+        type: Schema.Types.ObjectId, ref: "User"
     },
     users: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "User"
+            type: Schema.Types.ObjectId, ref: "User"
         }
     ],
     characters: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Character"
+            type: Schema.Types.ObjectId, ref: "Character"
         }
     ],
     logs: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Log"
+            type: Schema.Types.ObjectId, ref: "Log"
         }
     ],
     items: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Item"
+            type: Schema.Types.ObjectId, ref: "Item"
         }
     ],
     spells: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Spell"
+            type: Schema.Types.ObjectId, ref: "Spell"
         }
     ],
     notes: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Note"
+            type: Schema.Types.ObjectId, ref: "Note"
         }
     ],
     handouts: [
         {
-            type: mongoose.Schema.Types.ObjectId, ref: "Handout"
+            type: Schema.Types.ObjectId, ref: "Handout"
         }
     ]
 
@@ -51,5 +52,5 @@ campaignSchema.statics.findByUser = async (userid) => {
     return campaign
 }
 
-const Campaign = mongoose.model("Campaign",campaignSchema)
-module.exports = Campaign
+export const Campaign = model("Campaign",campaignSchema)
+export const CampaignTC = composeWithMongoose(Campaign)

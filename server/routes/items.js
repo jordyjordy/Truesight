@@ -1,7 +1,7 @@
-express = require('express')
-router = express.Router()
-auth = require('../config/auth')
-const Item = require('../model/item')
+import {Router} from "express"
+const router = Router()
+import auth from "../config/auth.js"
+import {Item} from '../model/item.js'
 
 
 router.get('/', async (req, res) => {
@@ -53,4 +53,4 @@ router.post('/add', auth, async (req, res) => {
     res.status(201).json(result)
 })
 
-module.exports = router
+export const items = router

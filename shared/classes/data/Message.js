@@ -9,4 +9,5 @@ class Message {
         return Object.assign(new Message(),json)
     }
 }
-module.exports= Message
+
+export default Message

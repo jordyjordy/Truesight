@@ -1,9 +1,11 @@
-express = require('express')
-jwt = require('jsonwebtoken')
-router = express.Router();
-auth = require('../config/auth')
+import {Router} from "express"
+import jw from "jsonwebtoken"
+const {Jwt} = jw
+var router = Router();
+import auth from "../config/auth.js"
 router.use(auth)
-const Spell = require('../model/spell')
+import {Spell} from "../model/spell.js"
+
 
 router.get('/', async (req, res) => {
     res.status(200).json(await Spell.find())
@@ -65,4 +67,4 @@ router.delete('/remove', auth, async (req, res) => {
         res.status(400).send("something went wrong")
     }
 })
-module.exports = router
+export const spells = router

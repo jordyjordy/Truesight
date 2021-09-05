@@ -1,7 +1,9 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const userSchema = mongoose.Schema({
+import mong  from 'mongoose'
+const {  Schema, model } = mong
+import bcrypt from "bcrypt"
+import jw from "jsonwebtoken"
+const {Jwt} = jw
+const userSchema = Schema({
     email: {
         type: String,
         required: [true, "You need an email, silly!"]
@@ -94,5 +96,4 @@ userSchema.statics.updatePassword = async(email, password) => {
 //     return { result: "success" }
 // }
 
-const User = mongoose.model("User", userSchema)
-module.exports = User
+export const User = model("User", userSchema)

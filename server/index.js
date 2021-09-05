@@ -1,21 +1,21 @@
-const express = require('express')
+import express from "express"
 const app = express()
-const http = require('http')
-const mongoose = require("mongoose")
-const bodyParser = require("body-parser");
-const cors = require('cors')
+import http from "http"
+import mongoose from "mongoose"
+import bodyParser from "body-parser";
+import cors from "cors"
+import dotenv from "dotenv"
 if (process.env.NODE_ENV != "production") {
-    const dotenv = require('dotenv')
     dotenv.config()
 }
-const websocket = require('./websocket')
+import {createSocket, handleUpgrade} from "./websocket.js"
 
-var spells = require('./routes/spells')
-var characters = require('./routes/characters')
-var user = require('./routes/user')
-var items = require('./routes/items')
-var campaigns = require("./routes/campaigns")
-var logs = require("./routes/logs")
+import {spells} from "./routes/spells.js"
+import {characters} from "./routes/characters.js"
+import {user} from "./routes/user.js"
+import {items} from "./routes/items.js"
+import {campaigns} from "./routes/campaigns.js"
+import {logs} from "./routes/logs.js"
 
 mongoose.set("useCreateIndex", true)
 mongoose.set("useUnifiedTopology", true)
@@ -35,8 +35,8 @@ app.use('/items', items)
 app.use('/campaigns',campaigns)
 app.use('/logs', logs)
 var server = http.createServer(app)
-websocket.createSocket()
+createSocket()
 server.on('upgrade', (request, socket, head) => {
-    websocket.handleUpgrade(request, socket, head)
+    handleUpgrade(request, socket, head)
 })
 server.listen(port, () => console.log("Listening on port " + port))

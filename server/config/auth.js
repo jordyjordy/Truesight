@@ -1,6 +1,7 @@
-const jwt = require("jsonwebtoken")
-const User = require("../model/user")
-module.exports = async (req, res, next) => {
+import jw from "jsonwebtoken"
+const {Jwt} = jw
+import {User} from "../model/user.js"
+const auth = async (req, res, next) => {
     //retrieve possible tokens
     const token = req.headers.token
     try {
@@ -9,7 +10,7 @@ module.exports = async (req, res, next) => {
             throw new Error("no valid tokens present")
         } else {
             //decode the token
-            const decoded = await jwt.verify(token, process.env.SECRET);
+            const decoded = await Jwt.verify(token, process.env.SECRET);
             const secondsSinceEpoch = Math.round(Date.now() / 1000)
             //determine if the token has timed out
             if (secondsSinceEpoch - decoded.iat >= process.env.TOKEN_TIMEOUT) {
@@ -27,3 +28,4 @@ module.exports = async (req, res, next) => {
         res.status(401).json("Authentication Failed")
     }
 }
+export default auth

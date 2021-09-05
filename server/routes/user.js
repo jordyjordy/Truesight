@@ -1,10 +1,10 @@
-express = require('express')
-router = express.Router()
-mongoose = require("mongoose")
-jwt = require("jsonwebtoken")
-nodemailer = require('nodemailer')
-const User = require("../model/user")
-const {sendRecoveryEmail} = require("../config/sendEmail")
+import Router from 'express'
+const router = Router()
+
+import jw from "jsonwebtoken"
+const {Jwt} = jw
+import {User} from "../model/user.js"
+import { sendRecoveryEmail } from '../config/sendEmail.js'
 
 router.post('/register', async (req, res) => {
     try {
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.delete('/logout', async (req, res) => {
-    const decoded = jwt.verify(req.headers.token, process.env.SECRET)
+    const decoded = Jwt.verify(req.headers.token, process.env.SECRET)
     // await User.removeToken(decoded.email, req.headers.token)
     // if (req.headers.longtoken) {
     //     await User.removeToken(decoded.email, req.headers.longtoken)
@@ -55,7 +55,7 @@ router.get('/authenticate', async (req, res) => {
     try {
         //decode the long token
         const longtoken = req.headers.longtoken
-        const decoded = await jwt.verify(longtoken, process.env.SECRET);
+        const decoded = await Jwt.verify(longtoken, process.env.SECRET);
         const secondsSinceEpoch = Math.round(Date.now() / 1000)
         //if the longtoken has timed out we need to tell the client to reconnect (log in again with credentials)
         if (secondsSinceEpoch - decoded.iat >= process.env.LONG_TOKEN_TIMEOUT) {
@@ -80,7 +80,7 @@ router.post('/requestpasswordreset', async(req,res) => {
             res.status(400).send()
         }
 
-        token = jwt.sign({email:email},process.env.RECOVERY_SECRET)
+        token = Jwt.sign({email:email},process.env.RECOVERY_SECRET)
         sendRecoveryEmail(email,token)
         res.status(201).send()
     } catch(err) {
@@ -91,7 +91,7 @@ router.post('/requestpasswordreset', async(req,res) => {
 
 router.post('/passwordreset', async(req, res) => {
     try {
-        const decoded = await jwt.verify(req.body.token, process.env.RECOVERY_SECRET)
+        const decoded = await Jwt.verify(req.body.token, process.env.RECOVERY_SECRET)
         const secondsSinceEpoch = Math.round(Date.now() / 1000)
         //the user only has an hour to reset their password
         if (secondsSinceEpoch - decoded.iat >= 3600) {
@@ -106,5 +106,4 @@ router.post('/passwordreset', async(req, res) => {
         res.status(400).send()
     }
 })
-
-module.exports = router
+export const user = router

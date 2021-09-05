@@ -1,7 +1,7 @@
-express = require('express')
-router = express.Router();
-auth = require('../config/auth')
-const Character = require('../model/character')
+import Router from "express"
+var router = Router();
+import auth from "../config/auth.js"
+import {Character} from "../model/character.js"
 router.use(auth)
 
 router.get('/list', async (req, res) => {
@@ -42,4 +42,4 @@ router.post('/create', async (req, res) => {
 
 })
 
-module.exports = router
+export const characters = router

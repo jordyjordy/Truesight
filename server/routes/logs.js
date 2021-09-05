@@ -1,8 +1,9 @@
-express = require('express')
-router = express.Router();
-auth = require('../config/auth')
-const Log = require('../model/log')
-const Campaign = require('../model/campaign')
+import {Router} from 'express'
+const router = Router();
+import auth from "../config/auth.js"
+import {Log} from "../model/log.js"
+import {Campaign} from "../model/campaign.js"
+
 router.use(auth)
 
 router.get('/', async(req,res) => {
@@ -39,4 +40,4 @@ router.delete('/delete', async(req,res) => {
     }
 })
 
-module.exports = router
+export const logs = router

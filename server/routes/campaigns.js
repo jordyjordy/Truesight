@@ -1,7 +1,7 @@
-express = require('express')
-router = express.Router();
-auth = require('../config/auth')
-const Campaign = require('../model/campaign')
+import {Router} from "express"
+const router = Router();
+import auth from '../config/auth.js'
+import {Campaign} from "../model/campaign.js"
 
 router.use(auth)
 
@@ -55,4 +55,4 @@ router.delete('/delete', async(req,res) => {
         res.sendStatus(204)
     }
 })
-module.exports = router
+export const campaigns = router

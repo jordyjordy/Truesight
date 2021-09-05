@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-
-const spellSchema = mongoose.Schema({
+import mong from "mongoose"
+const { Schema, model } = mong
+const spellSchema = Schema({
     name: {
         type: String
     },
@@ -35,7 +35,7 @@ const spellSchema = mongoose.Schema({
         type: Boolean
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: "User"
+        type: Schema.Types.ObjectId, ref: "User"
     },
     private: {
         type: Boolean
@@ -57,5 +57,4 @@ spellSchema.statics.spellCount = async () => {
     return (await Spell.find()).length
 }
 
-const Spell = mongoose.model("Spell", spellSchema)
-module.exports = Spell
+export const Spell = model("Spell", spellSchema)

@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+import mong from "mongoose"
+const {Schema, model} = mong
 
-const itemSchema = mongoose.Schema({
+const itemSchema = Schema({
     name: {
         type: String,
         require: [true, "items need names"]
@@ -35,7 +36,7 @@ const itemSchema = mongoose.Schema({
         type: String
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: "User"
+        type: Schema.Types.ObjectId, ref: "User"
     },
     private: {
         type: Boolean
@@ -60,5 +61,4 @@ itemSchema.statics.itemCount = async () => {
 }
 
 
-const Item = mongoose.model("Item", itemSchema)
-module.exports = Item
+export const Item = model("Item", itemSchema)

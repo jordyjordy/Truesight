@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
+import mong from "mongoose"
+const {Schema, model} = mong
 
-const logSchema = mongoose.Schema({
+const logSchema = Schema({
     name: {
         type:String,
         required: [true,"Your log entry needs a name"]
@@ -13,9 +14,8 @@ const logSchema = mongoose.Schema({
         type: String
     },
     campaign:{
-        type: mongoose.Schema.Types.ObjectId, ref: "Campaign"
+        type: Schema.Types.ObjectId, ref: "Campaign"
     }
 })
 
-const Log = mongoose.model("Log",logSchema)
-module.exports = Log
+export const Log = model("Log",logSchema)

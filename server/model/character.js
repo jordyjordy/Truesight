@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
-
-const characterSchema = mongoose.Schema({
+import mong from "mongoose"
+const  {Mongoose, Schema, model} = mong
+const characterSchema = Schema({
     name: {
         type: String,
         require: [true, "You need a name, silly!"]
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: "User"
+        type: Schema.Types.ObjectId, ref: "User"
     },
     cclass: [
         {
@@ -321,5 +321,4 @@ characterSchema.statics.findSingleById = async (id) => {
     return char
 }
 
-const Character = mongoose.model("Character", characterSchema)
-module.exports = Character
+export const Character = model("Character", characterSchema)
