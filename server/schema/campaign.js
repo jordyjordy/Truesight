@@ -1,4 +1,4 @@
-import { CampaignTC } from "../model/campaign.js";
+import { Campaign, CampaignTC } from "../model/campaign.js";
 
 const campaignQuery = {
     campaignById: CampaignTC.getResolver('findById'),
@@ -8,7 +8,7 @@ const campaignQuery = {
     campaignCount: CampaignTC.getResolver('count'),
     campaignConnection: CampaignTC.getResolver('connection'),
     campaignPagination: CampaignTC.getResolver('pagination'),
-
+    campaignByUser: CampaignTC.getResolver('findByUser')
 }
 
 const campaignMutation = {
@@ -21,5 +21,6 @@ const campaignMutation = {
     campaignRemoveOne: CampaignTC.getResolver('removeOne'),
     campaignRemoveMany: CampaignTC.getResolver('removeMany'),
 }
+
 
 export {campaignQuery, campaignMutation}

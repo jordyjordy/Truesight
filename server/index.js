@@ -1,7 +1,7 @@
 import express from "express"
 const app = express()
 import http from "http"
-import mongoose from "mongoose"
+
 import bodyParser from "body-parser";
 import cors from "cors"
 import dotenv from "dotenv"
@@ -15,8 +15,8 @@ import {characters} from "./routes/characters.js"
 import {user} from "./routes/user.js"
 import {items} from "./routes/items.js"
 import {campaigns} from "./routes/campaigns.js"
-import {logs} from "./routes/logs.js"
 
+import mongoose from "mongoose"
 mongoose.set("useCreateIndex", true)
 mongoose.set("useUnifiedTopology", true)
 mongoose.set("useNewUrlParser", true)
@@ -26,8 +26,9 @@ mongoose.connect(process.env.DATABASE_URL).then(() => {
 })
 let db = mongoose.connection;
 db.on('error', ()=> {
-    
+    console.error("")
 })
+
 const port = process.env.PORT || 5000
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -37,7 +38,6 @@ app.use('/characters', characters)
 app.use('/user', user)
 app.use('/items', items)
 app.use('/campaigns',campaigns)
-app.use('/logs', logs)
 var server = http.createServer(app)
 createSocket()
 server.on('upgrade', (request, socket, head) => {

@@ -4,7 +4,7 @@ const characterQuery = {
     characterById: CharacterTC.getResolver('findById'),
     characterByIds: CharacterTC.getResolver('findByIds'),
     characterOne: CharacterTC.getResolver('findOne'),
-    characterMany: CharacterTC.getResolver('findMany'),
+    characterMany: CharacterTC.getResolver('findMany',[authMiddleware]),
     characterCount: CharacterTC.getResolver('count'),
     characterConnection: CharacterTC.getResolver('connection'),
     characterPagination: CharacterTC.getResolver('pagination'),
@@ -20,6 +20,11 @@ const characterMutation = {
     characterRemoveById: CharacterTC.getResolver('removeById'),
     characterRemoveOne: CharacterTC.getResolver('removeOne'),
     characterRemoveMany: CharacterTC.getResolver('removeMany'),
+}
+
+async function authMiddleware(resolve, source, args, context, info) {
+        
+    return resolve(source,args,context,info)
 }
 
 export {characterQuery, characterMutation}
