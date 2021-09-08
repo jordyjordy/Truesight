@@ -1,0 +1,85 @@
+.logs-screen {
+    display:grid;
+    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
+    padding:10px;
+    column-gap: 10px;
+}
+
+.logs-screen h3 {
+    margin-bottom:0;
+    margin-top:0;
+    text-transform: capitalize;
+}
+
+.logs-screen .logs-container{
+    font-family: "Yaldevi Colombo ExtraLight";
+    background-color: white;
+    height: calc(100vh - 100px);
+}
+
+.logs-screen .logs-search{
+    padding:10px;
+}
+
+.logs-screen .log-el{
+    border-top: 1px solid rgb(190, 190, 190);
+    padding-left:10px;
+}
+
+.logs-screen .logs-list{
+    overflow: overlay;
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.logs-screen .logs-search {
+    display: flex;
+}
+
+.logs-screen .logs-detail {
+    background-color: white;
+    position: relative;
+    width:100%;
+}
+
+.logs-detail .title{
+    padding-left:10px;
+    position: relative;
+    border-bottom: 1px solid lightgray;
+    font-family: "Yaldevi Colombo ExtraLight";
+}
+.title > div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    height:50px;
+}
+
+.logs-detail textarea{
+    width:calc(100% - 25px);
+    border:none;
+    margin:10px;
+    resize: none;
+    height:calc(100vh - 180px);
+    overflow-y:scroll;
+}
+
+.logs-detail input{
+    display: inline;
+    width:50px;
+}
+
+.logs-detail .name-input{
+    width:200px;
+    padding:0px;
+    margin-top:3px;
+
+}
+.log-text {
+    height:100%;
+    padding:10px;
+}

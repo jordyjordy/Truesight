@@ -10,7 +10,9 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     transition: background-color 2s ease;
 }
-
+.campaign-card:first-child {
+    margin: 0px 10px 10px 10px;
+}
 .campaign-card:hover {
     /* background: rgb(217,217,217); */
     background: linear-gradient(50deg, rgba(217,217,217,1) 0%, rgba(255,255,255,1) 100%);

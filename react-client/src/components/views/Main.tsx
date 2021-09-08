@@ -1,6 +1,6 @@
 import { Switch, Route, useRouteMatch} from "react-router-dom"
 import { Header } from "../partials/"
-import { Campaigns, Characters,  Settings, Overview, CampaignScreen, Logs} from "./Main/";
+import { Campaigns, Characters,  Settings, Overview, CampaignScreen, Logbook} from "./Main/";
 import "../../style/Main/Main.css"
 export function Main() {
     let { path} = useRouteMatch();
@@ -26,7 +26,7 @@ export function Main() {
               <CampaignScreen />
             </Route>
             <Route path={path+"/logs:campaignid"}>
-              <Logs />
+              <Logbook />
             </Route>
           </Switch>
         </div>

@@ -33,8 +33,6 @@ export const campaignsSlice = createSlice({
             state.campaigns = state.campaigns.filter(char => char._id !== action.payload._id)
         },
         setCampaigns: (state, action:PayloadAction<Campaign[]>) => {
-            console.log(state.campaigns)
-            console.log(action.payload)
             state.campaigns = action.payload
         },
         editCampaign: (state, action:PayloadAction<Campaign>) => {

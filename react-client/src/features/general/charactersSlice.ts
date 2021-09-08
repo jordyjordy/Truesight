@@ -25,8 +25,6 @@ export const charactersSlice = createSlice({
             state.characters = state.characters.filter(char => char._id === action.payload._id)
         },
         setCharacters: (state, action:PayloadAction<SimpleCharacter[]>) => {
-            console.log(state.characters)
-            console.log(action.payload)
             state.characters = action.payload
         }
     }

@@ -4,6 +4,7 @@ auth = require('../config/auth')
 const Character = require('../model/character')
 router.use(auth)
 
+//characters/list
 router.get('/list', async (req, res) => {
     var result = await Character.findByUser(req.userData._id)
     for (let i = 0; i < result.length; i++) {
@@ -15,7 +16,7 @@ router.get('/list', async (req, res) => {
     }
     res.status(200).json(result)
 })
-
+//characters/single
 router.get('/single', async (req, res) => {
     const result = await Character.findSingleById(req.query.id)
 
@@ -25,6 +26,8 @@ router.get('/single', async (req, res) => {
         res.status(200).json(result)
     }
 })
+
+//characters/update
 router.put('/update', async (req, res) => {
     const char = req.body.character
     var oldchar = await Character.findById(char._id)
@@ -33,6 +36,7 @@ router.put('/update', async (req, res) => {
         res.status(201).json('success')
     }
 })
+//characters/create
 router.post('/create', async (req, res) => {
     const char = req.body.character
     const newChar = new Character(char)

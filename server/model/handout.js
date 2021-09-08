@@ -8,6 +8,9 @@ const handoutSchema = mongoose.Schema({
     image:{
         type:String,
         required: [true, "handout needs an image."]
+    },
+    campaign:{
+        type: mongoose.Schema.Types.ObjectId, ref: "Campaign"
     }
 })
 

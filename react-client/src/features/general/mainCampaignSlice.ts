@@ -48,11 +48,19 @@ export const mainCampaignSlice = createSlice({
         },
         populateLogs: (state, action:PayloadAction<Log[]>) => {
             state.campaign.logs = action.payload
+        },
+        editLog: (state, action:PayloadAction<Log>) => {
+            state.campaign.logs = state.campaign.logs.map(el => 
+                el._id === action.payload._id?action.payload:el
+            )
+        },
+        removeLog: (state, action:PayloadAction<String>) => {
+            state.campaign.logs = state.campaign.logs.filter(el => el._id !== action.payload)
         }
     }
 })
 
-export const {editCampaign, addLog, populateLogs} = mainCampaignSlice.actions
+export const {editCampaign, addLog, populateLogs, editLog, removeLog} = mainCampaignSlice.actions
 
 export const selectCampaigns = (state:RootState) => state.mainCampaign
 

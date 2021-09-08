@@ -1,15 +1,23 @@
 express = require('express')
 router = express.Router();
 auth = require('../config/auth')
-const Log = require('../model/log')
 const Campaign = require('../model/campaign')
+const Log = require('../model/log')
 router.use(auth)
 
-router.get('/', async(req,res) => {
-    var result = await Log.findById(req.query.id)
-    res.status(200).json(result)
+//campaign/logs?id=
+router.get('/logs', async(req,res) => {
+    var logs = await Campaign.getSimpleLogs(req.userData.id,req.query.id)
+    res.status(200).json(logs.logs)
 })
 
+//campaign/log?id=
+router.get('/log',async(req,res) => {
+    var log = await Log.findById(req.query.id)
+    res.status(200).json(log)
+})
+
+//campaign/logs/create
 router.post('/create', async(req, res) => {
     const log = req.body.log
     const newLog = new Log(log)
@@ -19,10 +27,9 @@ router.post('/create', async(req, res) => {
     await campaign.save()
     res.status(201).json(result)
 })
-
+//campaign/logs/update
 router.put('/update', async(req, res) => {
-    var oldLog = await Log.findById(req.body.log._id)
-    console.log(oldLog.campaign.users)
+    var oldLog = await Log.findById(req.body.log._id).populate('campaign')
     if(oldLog.campaign.users.includes(req.userData._id)) {
         var log = await Log.findOneAndUpdate({_id:req.body.log._id},req.body.log,{new:true})
         res.status(201).json(log)
@@ -30,11 +37,12 @@ router.put('/update', async(req, res) => {
         res.sendStatus(403)
     }
 })
-
+//campaign/logs/delete
 router.delete('/delete', async(req,res) => {
-    var oldLog = await Log.findById(req.query.id)
+    var oldLog = await Log.findById(req.query.id).populate('campaign')
     if(oldLog.campaign.users.includes(req.userData._id)) {
-        oldLog.remove()
+        await Campaign.updateOne({_id:oldLog.campaign}, {$pull: {"logs":req.query.id}})
+        await oldLog.remove()
         res.sendStatus(204)
     }
 })

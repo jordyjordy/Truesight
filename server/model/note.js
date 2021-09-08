@@ -14,6 +14,9 @@ const noteSchema = mongoose.Schema({
     text: {
         type:String,
         required:[true,"your note needs text!"]
+    },
+    campaign:{
+        type: mongoose.Schema.Types.ObjectId, ref: "Campaign"
     }
 })
 const Note = mongoose.model("Note",noteSchema)

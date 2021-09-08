@@ -51,5 +51,29 @@ campaignSchema.statics.findByUser = async (userid) => {
     return campaign
 }
 
+campaignSchema.statics.getSimpleLogs = async (userid,campaignid) => {
+    if(verifyUserInCampaign(userid,campaignid)) {
+        const campaign = await Campaign.findById(campaignid).populate('logs',['name','session'])
+        return campaign
+    } return {logs:[]}
+}
+
+async function verifyUserInCampaign(userid,campaignid) {
+    try{
+    const campaign = await Campaign.findById(campaignid)
+    return campaign.users.includes(userid)
+    } catch(err) {
+        return false
+    }
+}
+
+async function verifyUserIsDM(userid,campaignid) {
+    try {
+        const campaign = await Campaign.findById(campaignid)
+        return campaign.DM === userid
+    } catch(err) {
+        return false
+    }
+}
 const Campaign = mongoose.model("Campaign",campaignSchema)
 module.exports = Campaign
