@@ -33,6 +33,40 @@ export function CampaignScreen(props:any) {
                 </div>)}
                 />
         </div>
+        
+        <div className="x-3 y-1 grid-item">
+            <List headerColor="#794017" headerText="Logbook"
+                onHeaderClick={() => onOpenDetailPage('logs')} onCardClick={onOpenDetailPage}
+                listItems={campaign.logs.slice().reverse()} itemlimit={4} referenceUrl={'logs'}
+                renderCard={(log:any) => (
+                <div>
+                    <div>{log.name}</div>
+                    <div style={{fontSize:'15px'}}>Session: {log.session}</div>
+                </div>)}
+                />
+        </div>
+        <div className="x-4 y-1 long grid-item">
+            <List headerColor="#B92C00" headerText="Notes"
+                onHeaderClick={() => onOpenDetailPage('notes')} onCardClick={onOpenDetailPage}
+                listItems={campaign.notes} itemlimit={8} referenceUrl={'notes'}
+                renderCard={(note:any) => (
+                <div>
+                    <div>{note.name}</div>
+                    <div style={{fontSize:'15px'}}>Session: {note.session} </div>
+                    <div style={{fontSize:'15px'}}>Type: {note.type} </div>
+                </div>)}
+                />
+        </div> 
+        <div className="x-3 y-2 grid-item">
+            <List headerColor="#444444" headerText="Handouts"
+                onHeaderClick={() => onOpenDetailPage('handouts')} onCardClick={onOpenDetailPage}
+                listItems={campaign.handouts} itemlimit={4} referenceUrl={'handouts'}
+                renderCard={(handout:any) => (
+                <div>
+                    <div>{handout.name}</div>
+                </div>)}
+                />
+        </div>
         <div className="x-2 y-1 grid-item">
             <List headerColor="#1B558B" headerText="Item stash"
                 onHeaderClick={() => onOpenDetailPage('items')} onCardClick={onOpenDetailPage}
@@ -54,39 +88,6 @@ export function CampaignScreen(props:any) {
                     <div style={{fontSize:'15px'}}>Session: {spell.type}</div>
                 </div>)}
                 />
-        </div>    
-        <div className="x-3 y-1 grid-item">
-            <List headerColor="#794017" headerText="Logbook"
-                onHeaderClick={() => onOpenDetailPage('logs')} onCardClick={onOpenDetailPage}
-                listItems={campaign.logs.slice().reverse()} itemlimit={4} referenceUrl={'logs'}
-                renderCard={(log:any) => (
-                <div>
-                    <div>{log.name}</div>
-                    <div style={{fontSize:'15px'}}>Session: {log.session}</div>
-                </div>)}
-                />
-        </div>
-        <div className="x-3 y-2 grid-item">
-            <List headerColor="#444444" headerText="Handouts"
-                onHeaderClick={() => onOpenDetailPage('handouts')} onCardClick={onOpenDetailPage}
-                listItems={campaign.handouts} itemlimit={4} referenceUrl={'handouts'}
-                renderCard={(handout:any) => (
-                <div>
-                    <div>{handout.name}</div>
-                </div>)}
-                />
-        </div>
-        <div className="x-4 y-1 long grid-item">
-            <List headerColor="#B92C00" headerText="Notes"
-                onHeaderClick={() => onOpenDetailPage('notes')} onCardClick={onOpenDetailPage}
-                listItems={campaign.notes} itemlimit={8} referenceUrl={'notes'}
-                renderCard={(note:any) => (
-                <div>
-                    <div>{note.name}</div>
-                    <div style={{fontSize:'15px'}}>Session: {note.session} </div>
-                    <div style={{fontSize:'15px'}}>Type: {note.type} </div>
-                </div>)}
-                />
-        </div>   
+        </div>      
     </div>)
 }
