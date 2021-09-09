@@ -17,7 +17,7 @@ router.get('/list', async (req, res) => {
         }
         res.status(200).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //characters/single
@@ -30,7 +30,7 @@ router.get('/single', async (req, res) => {
             res.status(200).json(result)
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -44,7 +44,7 @@ router.put('/update', async (req, res) => {
             res.status(201).json('success')
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //characters/create
@@ -56,7 +56,7 @@ router.post('/create', async (req, res) => {
         const result = await newChar.save()
         res.status(201).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 
 })

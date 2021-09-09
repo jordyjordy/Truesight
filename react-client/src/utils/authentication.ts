@@ -5,28 +5,29 @@ axios.interceptors.response.use(
         return response
     },
     async error => {
-        console.log(error)
         if (error.response.status === 401) {
             const longtoken = localStorage.getItem("longtoken")
-            if (longtoken) {
+            if (longtoken &&error.config.headers.attempt <= 1) {
                 try {
                     var res = await axios.get(process.env.REACT_APP_SERVER_IP + '/user/authenticate', { headers: { 'longtoken': longtoken } })
                     localStorage.setItem("token", res.data)
+                    var config:AxiosRequestConfig = error.config
+                    config.headers.token = res.data
+                    console.log('retrying connection ' + config.headers.attempt)
+                    config.headers.attempt = config.headers.attempt?2:1
+                    return new Promise((resolve) => {
+                        resolve(axios(config))
+                    })
                 } catch (err) {
                     localStorage.removeItem('token')
                     localStorage.removeItem('longtoken')
-                    throw new Error('disconnected')
+                    return Promise.reject(err)
                 }
-            } else {
-                localStorage.removeItem('token')
-                throw new Error('disconnected')
             }
-            throw new Error('reconnected')
-
-        } else if (error.response.status === 403) {
-            throw new Error('forbidden')
+            localStorage.removeItem('token')
+            return Promise.reject(error)
         }
-        throw error
+        return Promise.reject(error)
     }
 )
 
@@ -42,15 +43,7 @@ export const get = async function(url:string, config?: AxiosRequestConfig | unde
         return axios.get(url,config)
     }
     config = insertToken(config)
-    try{
-        return axios.get(url,config)
-    } catch(err:any) {
-        console.log(err)
-        if(err.message === "reconnected") {
-            return axios.get(url,config)
-        } 
-        throw err
-    }
+    return axios.get(url,config)
 }
 
 export const post = async function(url:string, data?: any, config?: AxiosRequestConfig | undefined,auth:boolean=true): Promise<AxiosResponse<any>> {
@@ -58,15 +51,8 @@ export const post = async function(url:string, data?: any, config?: AxiosRequest
         return axios.post(url,data,config)
     }
     config = insertToken(config)
-    try{
-        return axios.post(url,data,config)
-    } catch(err:any) {
-        console.log(err)
-        if(err.message === "reconnected") {
-            return axios.post(url,data,config)
-        } 
-        throw err
-    }
+    return axios.post(url,data,config)
+    
 }
 
 export const put = async function(url:string, data?: any, config? :AxiosRequestConfig|undefined, auth:boolean=true): Promise<AxiosResponse<any>> {
@@ -74,15 +60,7 @@ export const put = async function(url:string, data?: any, config? :AxiosRequestC
         return axios.put(url,data,config)
     }
     config = insertToken(config)
-    try{
-        return axios.put(url,data,config)
-    } catch(err:any) {
-        console.log(err)
-        if(err.message === "reconnected") {
-            return axios.put(url,data,config)
-        }
-        throw err
-    }
+    return axios.put(url,data,config)
 }
 
 export const del = async function(url:string, config? :AxiosRequestConfig|undefined, auth:boolean=true): Promise<AxiosResponse<any>> {
@@ -90,25 +68,20 @@ export const del = async function(url:string, config? :AxiosRequestConfig|undefi
         axios.delete(url,config)
     }
     config = insertToken(config)
-    try {
-        return axios.delete(url,config)
-    } catch(err:any) {
-        if(err.message === "reconnected") {
-            return axios.delete(url,config)
-        }
-        throw err
-    }
+    return axios.delete(url,config)
 }
 
 function insertToken(config?:AxiosRequestConfig) {
     if(config) {
         if(config.headers) {
             config.headers.token = localStorage.getItem("token")
+            config.headers.attempt = 1
         } else {
-            config.headers = {token:localStorage.getItem("token")}
+            config.headers = {token:localStorage.getItem("token"), attempt:1}
+
         }
     } else {
-        config = {headers: {token:localStorage.getItem("token")}}
+        config = {headers: {token:localStorage.getItem("token"), attempt:1}}
     }
     return config
 }

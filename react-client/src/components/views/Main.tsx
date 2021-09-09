@@ -22,7 +22,7 @@ export function Main() {
             <Route exact path={path+"/settings"}>
               <Settings />
             </Route>
-            <Route path={path+"/campaign/:id"}>
+            <Route path={path+"/campaign"}>
               <CampaignScreen />
             </Route>
           </Switch>

@@ -21,11 +21,17 @@ export function Logbook() {
             getCampaign(params.campaignid).then((res) => {
                 dispatch(editCampaign(res))
                 let tempstate:any = history.location.state
-                console.log(tempstate)
                 getLogs(params.campaignid).then((res) => {
                     dispatch(populateLogs(res))
-                    loadLog(tempstate && tempstate.itemid?tempstate.itemid:res[0]._id)
-                })
+                    if(res.length === 0) {
+                        dispatch(setLog({_id:"", name:"", session:NaN, text:""}))
+                        setTempLog({_id:'',name:'',session:0, text:''})
+                    } else {
+                        loadLog(tempstate && tempstate.itemid?tempstate.itemid:res[0]._id)
+                    }
+                }).catch((err) => {
+
+                }) 
             })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dispatch,params.campaignid])
@@ -100,7 +106,8 @@ export function Logbook() {
         </div>
         <div className="logs-detail">
             <div className="title">
-                {!edit
+                {log._id !== ""?
+                !edit
                 ? <div>
                     <div>
                         <h3>{log.name}</h3>
@@ -120,7 +127,9 @@ export function Logbook() {
                         <button onClick={() => save()}>Save</button>
                         <button onClick={() => deleteLog(log)}>Delete</button>
                     </div>
-                </div>}
+                </div>
+                :
+                <div></div>}
             </div>
             <div className="content">
                 {edit

@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     try{
         res.status(200).json(await Spell.find())
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 
 })
@@ -25,7 +25,7 @@ router.get('/count', auth, async (req, res) => {
     try{
         res.status(200).json(await Spell.spellCount())
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -34,7 +34,7 @@ router.get('/get', auth, async (req, res) => {
     var temp = await Spell.findById(req.query.id)
     res.status(200).json(temp)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 router.put('/update', auth, async (req, res) => {

@@ -12,7 +12,7 @@ router.get('/', async(req,res) => {
         var result = await Campaign.findById(req.query.id).populate('logs', ['name', 'session']). populate('characters',['name','cclass'])
         res.status(200).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -27,7 +27,7 @@ router.get('/list', async (req, res) => {
         }
         res.status(200).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -43,7 +43,7 @@ router.post('/create', async(req, res) => {
         tadaa = {...tadaa._doc, isDM:true}
         res.status(201).json(tadaa)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -59,7 +59,7 @@ router.put('/update', async(req, res) => {
             res.sendStatus(403)
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 

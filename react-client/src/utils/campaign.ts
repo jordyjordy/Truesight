@@ -20,7 +20,6 @@ export async function createCampaign() {
 
 export async function updateCampaign(campaign:Campaign) {
     var res:createCampaignResponse = await authentication.put(process.env.REACT_APP_SERVER_IP+'/campaigns/update',{campaign:campaign})
-    console.log(res)
     return res.data
 }
 

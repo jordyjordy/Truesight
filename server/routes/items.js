@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     try{
         res.status(200).json(await Item.find())
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //items/count
@@ -16,7 +16,7 @@ router.get('/count', async (req, res) => {
     try{
         res.status(200).json(await Item.itemCount())
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //items/query
@@ -24,7 +24,7 @@ router.get('/query', auth, async (req, res) => {
     try{
         res.status(200).json(await Item.findByName(req.query.searchterms, req.query.page, req.query.editable, req.userData._id))
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //items/get
@@ -32,7 +32,7 @@ router.get('/get', async (req, res) => {
     try{
         res.status(200).json(await Item.findById(req.query.id))
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -75,7 +75,7 @@ router.post('/add', auth, async (req, res) => {
         result = await newItem.save()
         res.status(201).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 

@@ -11,7 +11,7 @@ router.get('/logs', async(req,res) => {
         var logs = await Campaign.getSimpleLogs(req.userData.id,req.query.id)
         res.status(200).json(logs.logs)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -21,7 +21,7 @@ router.get('/log',async(req,res) => {
         var log = await Log.findById(req.query.id)
         res.status(200).json(log)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
@@ -36,7 +36,7 @@ router.post('/create', async(req, res) => {
         await campaign.save()
         res.status(201).json(result)
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //campaign/logs/update
@@ -50,7 +50,7 @@ router.put('/update', async(req, res) => {
             res.sendStatus(403)
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 //campaign/logs/delete
@@ -63,7 +63,7 @@ router.delete('/delete', async(req,res) => {
             res.sendStatus(204)
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(400)
     }
 })
 
