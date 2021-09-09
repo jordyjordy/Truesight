@@ -2,22 +2,38 @@ express = require('express')
 router = express.Router()
 auth = require('../config/auth')
 const Item = require('../model/item')
-
+router.use(auth)
 //items
 router.get('/', async (req, res) => {
-    res.status(200).json(await Item.find())
+    try{
+        res.status(200).json(await Item.find())
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 //items/count
 router.get('/count', async (req, res) => {
-    res.status(200).json(await Item.itemCount())
+    try{
+        res.status(200).json(await Item.itemCount())
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 //items/query
 router.get('/query', auth, async (req, res) => {
-    res.status(200).json(await Item.findByName(req.query.searchterms, req.query.page, req.query.editable, req.userData._id))
+    try{
+        res.status(200).json(await Item.findByName(req.query.searchterms, req.query.page, req.query.editable, req.userData._id))
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 //items/get
 router.get('/get', async (req, res) => {
-    res.status(200).json(await Item.findById(req.query.id))
+    try{
+        res.status(200).json(await Item.findById(req.query.id))
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 
 //items/update
@@ -53,10 +69,14 @@ router.delete('/remove', auth, async (req, res) => {
 
 //items/add
 router.post('/add', auth, async (req, res) => {
-    const newItem = new Item(req.body.item)
-    newItem.user = req.userData._id
-    result = await newItem.save()
-    res.status(201).json(result)
+    try {
+        const newItem = new Item(req.body.item)
+        newItem.user = req.userData._id
+        result = await newItem.save()
+        res.status(201).json(result)
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 
 module.exports = router

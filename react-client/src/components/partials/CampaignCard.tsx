@@ -32,7 +32,7 @@ export function CampaignCard(props:campaignProps) {
     function showCampaign(e:React.MouseEvent<HTMLElement>) {
         e.stopPropagation()
         if(!edit) {
-            history.push(path +'/campaign'+props.campaign._id)
+            history.push(path +'/campaign/'+props.campaign._id)
         }
     }
 

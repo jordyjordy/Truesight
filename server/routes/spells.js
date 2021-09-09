@@ -6,7 +6,11 @@ router.use(auth)
 const Spell = require('../model/spell')
 
 router.get('/', async (req, res) => {
-    res.status(200).json(await Spell.find())
+    try{
+        res.status(200).json(await Spell.find())
+    } catch(err) {
+        res.sendStatus(401)
+    }
 
 })
 
@@ -18,12 +22,20 @@ router.get('/query', auth, async (req, res) => {
     }
 })
 router.get('/count', auth, async (req, res) => {
-    res.status(200).json(await Spell.spellCount())
+    try{
+        res.status(200).json(await Spell.spellCount())
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 
 router.get('/get', auth, async (req, res) => {
+    try {
     var temp = await Spell.findById(req.query.id)
     res.status(200).json(temp)
+    } catch(err) {
+        res.sendStatus(401)
+    }
 })
 router.put('/update', auth, async (req, res) => {
     try {
