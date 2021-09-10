@@ -12,9 +12,7 @@ export function Header() {
     }
 
     useEffect(() => {
-        window.addEventListener("scroll",(event) => {
-            console.log('scrolling')
-            console.log(yPos)
+        window.addEventListener("scroll",() => {
             setYPos(window.pageYOffset)
         })
     })

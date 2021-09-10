@@ -22,8 +22,8 @@ const initialState: logState = {
     }
 }
 
-export const mainCampaignSlice = createSlice({
-    name:'mainCampaign',
+export const logSlice = createSlice({
+    name:'Log',
     initialState,
     reducers: {
         setLog: (state, action:PayloadAction<Log>) => {
@@ -41,8 +41,8 @@ export const mainCampaignSlice = createSlice({
     }
 })
 
-export const {setLog, editName,editSession,editText} = mainCampaignSlice.actions
+export const {setLog, editName,editSession,editText} = logSlice.actions
 
 export const selectCampaigns = (state:RootState) => state.mainCampaign
 
-export default mainCampaignSlice.reducer
+export default logSlice.reducer

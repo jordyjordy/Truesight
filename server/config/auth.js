@@ -3,6 +3,7 @@ const User = require("../model/user")
 module.exports = async (req, res, next) => {
     //retrieve possible tokens
     const token = req.headers.token
+    // console.log(token)
     try {
         //check if a token exists
         if (!token) {

@@ -27,7 +27,6 @@ export function Campaigns(props:campaignProps) {
     }
     async function crc(){
         const res = await createCampaign()
-        console.log(res)
         dispatch(addCampaign(res))
     }
     return (

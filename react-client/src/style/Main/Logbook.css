@@ -15,7 +15,7 @@
 .logs-screen .logs-container{
     font-family: "Yaldevi Colombo ExtraLight";
     background-color: white;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 130px);
 }
 
 .logs-screen .logs-search{

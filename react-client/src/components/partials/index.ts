@@ -1,3 +1,4 @@
+export { BreadCrumb } from "./BreadCrumb"
 export {Characters} from "./Characters"
 export {Header} from "./Header"
 export {Campaigns} from "./Campaigns"

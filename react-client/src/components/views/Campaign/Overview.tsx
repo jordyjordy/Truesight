@@ -23,7 +23,8 @@ export function Overview(props:any) {
     function onOpenDetailPage(newurl:string,itemid?:string) {
         history.push(url+newurl, {itemid:itemid})
     }
-    return (<div className="campaign-container">
+    return (
+    <div className="campaign-container">
         <div className="x-1 y-1 grid-item long">
             <List headerColor="purple" headerText="Characters"
                 onHeaderClick={() => onOpenDetailPage('/characters')} onCardClick={onOpenDetailPage}

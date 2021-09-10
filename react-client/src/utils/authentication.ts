@@ -56,6 +56,7 @@ export const post = async function(url:string, data?: any, config?: AxiosRequest
 }
 
 export const put = async function(url:string, data?: any, config? :AxiosRequestConfig|undefined, auth:boolean=true): Promise<AxiosResponse<any>> {
+    console.log("putting:" + url)
     if(!auth) {
         return axios.put(url,data,config)
     }
@@ -64,6 +65,7 @@ export const put = async function(url:string, data?: any, config? :AxiosRequestC
 }
 
 export const del = async function(url:string, config? :AxiosRequestConfig|undefined, auth:boolean=true): Promise<AxiosResponse<any>> {
+    console.log("deleting:" + url)
     if(!auth) {
         axios.delete(url,config)
     }

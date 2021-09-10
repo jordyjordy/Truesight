@@ -56,7 +56,22 @@ export const mainCampaignSlice = createSlice({
         },
         removeLog: (state, action:PayloadAction<String>) => {
             state.campaign.logs = state.campaign.logs.filter(el => el._id !== action.payload)
-        }
+        },
+        addNote: (state,action:PayloadAction<Log>) => {
+            state.campaign.notes.push(action.payload)
+        },
+        populateNotes: (state, action:PayloadAction<Log[]>) => {
+            state.campaign.notes = action.payload
+        },
+        editNote: (state, action:PayloadAction<Log>) => {
+            state.campaign.notes = state.campaign.notes.map(el => 
+                el._id === action.payload._id?action.payload:el
+            )
+        },
+        removeNote: (state, action:PayloadAction<String>) => {
+            state.campaign.notes = state.campaign.notes.filter(el => el._id !== action.payload)
+        },
+        
     }
 })
 

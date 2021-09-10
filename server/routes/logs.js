@@ -6,7 +6,7 @@ const Log = require('../model/log')
 router.use(auth)
 
 //campaign/logs?id=
-router.get('/logs', async(req,res) => {
+router.get('/list', async(req,res) => {
     try{
         var logs = await Campaign.getSimpleLogs(req.userData.id,req.query.id)
         res.status(200).json(logs.logs)
@@ -16,7 +16,7 @@ router.get('/logs', async(req,res) => {
 })
 
 //campaign/log?id=
-router.get('/log',async(req,res) => {
+router.get('/',async(req,res) => {
     try{
         var log = await Log.findById(req.query.id)
         res.status(200).json(log)
@@ -26,7 +26,7 @@ router.get('/log',async(req,res) => {
 })
 
 //campaign/logs/create
-router.post('/create', async(req, res) => {
+router.post('/', async(req, res) => {
     try{
         const log = req.body.log
         const newLog = new Log(log)
@@ -40,7 +40,7 @@ router.post('/create', async(req, res) => {
     }
 })
 //campaign/logs/update
-router.put('/update', async(req, res) => {
+router.put('/', async(req, res) => {
     try{
         var oldLog = await Log.findById(req.body.log._id).populate('campaign')
         if(oldLog.campaign.users.includes(req.userData._id)) {
@@ -54,7 +54,7 @@ router.put('/update', async(req, res) => {
     }
 })
 //campaign/logs/delete
-router.delete('/delete', async(req,res) => {
+router.delete('/', async(req,res) => {
     try{
         var oldLog = await Log.findById(req.query.id).populate('campaign')
         if(oldLog.campaign.users.includes(req.userData._id)) {

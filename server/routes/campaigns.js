@@ -2,11 +2,8 @@ express = require('express')
 router = express.Router();
 auth = require('../config/auth')
 const Campaign = require('../model/campaign')
-logs = require('./logs')
 router.use(auth)
-router.use('/logs',logs)
 
-//campaign
 router.get('/', async(req,res) => {
     try {
         var result = await Campaign.findById(req.query.id).populate('logs', ['name', 'session']). populate('characters',['name','cclass'])
@@ -14,9 +11,8 @@ router.get('/', async(req,res) => {
     } catch(err) {
         res.sendStatus(400)
     }
-})
+});
 
-//campaign/list
 router.get('/list', async (req, res) => {
     try{
         var result = await Campaign.findByUser(req.userData._id)
@@ -29,10 +25,10 @@ router.get('/list', async (req, res) => {
     } catch(err) {
         res.sendStatus(400)
     }
-})
+});
 
 //campaign/create
-router.post('/create', async(req, res) => {
+router.post('/', async(req, res) => {
     try{
         const campaign = req.body.campaign
         const newCampaign = new Campaign(campaign)
@@ -45,10 +41,10 @@ router.post('/create', async(req, res) => {
     } catch(err) {
         res.sendStatus(400)
     }
-})
+});
 
 //campaign/update
-router.put('/update', async(req, res) => {
+router.put('/', async(req, res) => {
     try{
         var oldCampaign = await Campaign.findById(req.body.campaign._id)
         if(oldCampaign.DM.toString() === req.userData._id) {
@@ -63,18 +59,15 @@ router.put('/update', async(req, res) => {
     }
 })
 
-
-
-router.delete('/delete', async(req,res) => {
+router.delete('/', async(req,res) => {
     try{
-        console.log(req.headers)
         var oldCampaign = await Campaign.findById(req.query.id)
         if(oldCampaign.DM.toString() === req.userData._id) {
             oldCampaign.remove()
             res.sendStatus(204)
         }
     } catch(err) {
-        res.sendStatus(401)
+        res.sendStatus(40)
     }
-})
+});
 module.exports = router

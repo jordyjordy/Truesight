@@ -1,37 +1,36 @@
-import { useHistory, useParams } from "react-router-dom";
-import {Log, setLog} from "../../../features/general/logSlice";
-import { editCampaign, addLog, populateLogs, editLog, removeLog } from "../../../features/general/mainCampaignSlice";
-import { RootState } from "../../../store";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCampaign, getLogs, createLog, getLog, updateLog, deleteLog as delLog } from "../../../utils/campaign";
-import "../../../style/Main/Logbook.css"
+import { useEffect, useState } from "react"
+import {  useParams } from "react-router"
+import { Log } from "../../../features/general/logSlice"
+import { editCampaign } from "../../../features/general/mainCampaignSlice"
+import { useAppDispatch, useAppSelector } from "../../../hooks"
+import { getCampaign } from "../../../utils/campaign"
 
-export function Logbook() {
-    const dispatch = useDispatch()
+
+export function Notes() {
+    const dispatch = useAppDispatch()
     let params:{campaignid:string} = useParams()
     const [searchParams,setSearchParams] = useState("")
     const [edit,setEdit] = useState(false)
-    const history = useHistory()
-    var log = useSelector((state:RootState) => state.currentLog.log)
-    var campaign = useSelector((state:RootState) => state.mainCampaign.campaign)
+    // const history = useHistory()
+    var log = useAppSelector((state) => state.currentLog.log)
+    var campaign = useAppSelector((state) => state.mainCampaign.campaign)
     const [tempLog,setTempLog] = useState({_id: log._id, name:log.name, session:log.session,text:log.text})
     
     useEffect(() => {
             getCampaign(params.campaignid).then((res) => {
                 dispatch(editCampaign(res))
-                let tempstate:any = history.location.state
-                getLogs(params.campaignid).then((res) => {
-                    dispatch(populateLogs(res))
-                    if(res.length === 0) {
-                        // dispatch(setLog({_id:"", name:"", session:NaN, text:""}))
-                        setTempLog({_id:'',name:'',session:0, text:''})
-                    } else {
-                        loadLog(tempstate && tempstate.itemid?tempstate.itemid:res[0]._id)
-                    }
-                }).catch((err) => {
+                // let tempstate:any = history.location.state
+                // getLogs(params.campaignid).then((res) => {
+                //     dispatch(populateLogs(res))
+                //     if(res.length === 0) {
+                //         dispatch(setLog({_id:"", name:"", session:NaN, text:""}))
+                //         setTempLog({_id:'',name:'',session:0, text:''})
+                //     } else {
+                //         loadLog(tempstate && tempstate.itemid?tempstate.itemid:res[0]._id)
+                //     }
+                // }).catch((err) => {
 
-                }) 
+                // }) 
             })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dispatch,params.campaignid])
@@ -41,18 +40,18 @@ export function Logbook() {
     }
 
     async function newLog() {
-        var log = await createLog(params.campaignid)
-        dispatch(addLog(log))
+        // var log = await createLog(params.campaignid)
+        // dispatch(addLog(log))
     }
 
     function loadLog(id:string) {
-        if(!edit || window.confirm("Opening another log will undo the changes made to the previous log, are you sure?")) {
-            setEdit(false)
-            getLog(id).then((res:Log)=> {
-                dispatch(setLog(res))
-                setTempLog(res)
-            })
-        }
+        // if(!edit || window.confirm("Opening another log will undo the changes made to the previous log, are you sure?")) {
+        //     setEdit(false)
+        //     getLog(id).then((res:Log)=> {
+        //         dispatch(setLog(res))
+        //         setTempLog(res)
+        //     })
+        // }
     }
 
     function changeLogText(event:React.FormEvent<HTMLTextAreaElement>) {
@@ -69,28 +68,27 @@ export function Logbook() {
     }
 
     async function save() {
-        setEdit(false)
-        var res = await updateLog({...tempLog,_id:log._id})
-        dispatch(setLog(res))
-        console.log('updating internal log')
-        dispatch(editLog(res))
+        // setEdit(false)
+        // var res = await updateLog({...tempLog,_id:log._id})
+        // dispatch(setLog(res))
+        // console.log('updating internal log')
+        // dispatch(editLog(res))
     }
 
     async function deleteLog(log:Log) {
-        if(window.confirm("Are you sure you want to delete this log?")) {
-            await delLog(log._id)
-            const index = campaign.logs.findIndex((el) => el._id === log._id)
-            console.log(index)
-            if(index > 0) {
-                loadLog(campaign.logs[index-1]._id)
-            } else if (index > campaign.logs.length-1) {
-                loadLog(campaign.logs[index+1]._id)
-            } else {
-                setTempLog({_id:"",name:"",session:0,text:""})
-            }
-            dispatch(removeLog(log._id))
-            setEdit(false)
-        }
+        // if(window.confirm("Are you sure you want to delete this log?")) {
+        //     await delLog(log._id)
+        //     const index = campaign.logs.findIndex((el) => el._id === log._id)
+        //     if(index > 0) {
+        //         loadLog(campaign.logs[index-1]._id)
+        //     } else if (index > campaign.logs.length-1) {
+        //         loadLog(campaign.logs[index+1]._id)
+        //     } else {
+        //         setTempLog({_id:"",name:"",session:0,text:""})
+        //     }
+        //     dispatch(removeLog(log._id))
+        //     setEdit(false)
+        // }
     }
 
     return (
