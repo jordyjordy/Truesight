@@ -89,6 +89,7 @@ export default {
     border-radius:$border-radius;
     background-color:white;
     border:1px solid $border-color;
+    padding:0px 10px;
 }
 @media only screen and (max-width:$small-screen) {
     .backgroundinfo {
