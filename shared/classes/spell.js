@@ -20,12 +20,12 @@ class Spell{
     }
 
     equals(other) {
-        return other.name == this.name && other.level == this.level
-            && other.castingtime == this.castingtime && other.duration == this.duration
-            && other.distance == this.distance && other.attack == this.attack
-            && other.school == this.school && other.effect == this.effect
-            && other.components == this.components && other.description == this.description
-            && other.concentration == this.concentration
+        return other.name === this.name && other.level === this.level
+            && other.castingtime === this.castingtime && other.duration === this.duration
+            && other.distance === this.distance && other.attack === this.attack
+            && other.school === this.school && other.effect === this.effect
+            && other.components === this.components && other.description === this.description
+            && other.concentration === this.concentration
     }
 }
 module.exports=Spell
