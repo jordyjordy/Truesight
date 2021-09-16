@@ -63,6 +63,7 @@ module.exports.handleUpgrade = async (request, socket, head) => {
         })
 
     } else {
+        console.log("huh2")
         socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
         socket.destroy()
     }

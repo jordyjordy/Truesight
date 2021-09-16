@@ -311,9 +311,25 @@ export default {
     },
     drop(ev, id) {
       if (ev.dataTransfer.getData("origin") === "backpack") {
+
         let oldid = parseInt(ev.dataTransfer.getData("id"));
-        if (Math.abs(oldid - id) === 1) this.swap(oldid, id);
-        else if (oldid != id) this.insert(oldid, id);
+        if (Math.abs(oldid - id) === 1)  {
+          this.swap(oldid, id);
+          if(this.editid === oldid) {
+            this.editid = id
+          } else if(this.editid === id) {
+            this.editid = oldid
+          }
+        } else if (oldid != id) {
+          this.insert(oldid, id);
+          if(oldid < this.editid && id >= this.editid) {
+            this.editid--
+          } else if(oldid > this.editid && id <= this.editid) {
+            this.editid++
+          } else if(oldid === this.editid) {
+            this.editid = id
+          }
+        }
       } else {
         this.$emit("move", ev, "backpack", id);
       }

@@ -72,8 +72,13 @@ export default {
                 }
                 else if(b.level > a.level) {
                     return 1
+                } else {
+                    try{
+                        return a.name.localeCompare(b.name)
+                    } catch(err) {
+                        return 0
+                    }
                 }
-                return 0
             })
         }
     }, 
